@@ -1,0 +1,10 @@
+.header {
+  width: 100%;
+}
+
+.header__logo {
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  background-image: url(../../images/logo.svg);
+}

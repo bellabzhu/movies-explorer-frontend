@@ -1,0 +1,22 @@
+.about-me {
+
+}
+
+.about-me__header {
+
+}
+
+.about-me__name {
+  font-size: 50px;
+  line-height: 58px;
+}
+
+.about-me__job {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.about-me__description {
+  font-size: 14px;
+  line-height: 22px;
+}
