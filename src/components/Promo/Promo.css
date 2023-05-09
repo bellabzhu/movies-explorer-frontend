@@ -39,7 +39,6 @@
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  outline: red 1px solid;
 }
 
 @media screen and (max-width: 1024px) {
@@ -71,7 +70,7 @@
 
 }
 
-@media screen and (max-width: 722px) {
+@media screen and (max-width: 768px) {
 
   .promo {
     padding: 183px 0 40px 0;
