@@ -1,5 +1,4 @@
 import './Promo.css';
-import img from '../../images/promo-bg.svg'
 
 function Promo () {
 

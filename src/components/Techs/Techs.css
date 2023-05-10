@@ -27,6 +27,7 @@
   font-size: 22px;
   line-height: 27px;
   font-weight: 400;
+  letter-spacing: -0.04em;
 }
 
 .techs__subheader {
@@ -35,14 +36,18 @@
   font-size: 50px;
   line-height: 58px;
   font-weight: 400;
+  letter-spacing: -0.04em;
 }
 
 .techs__text {
   margin: 0;
   padding: 0 0 100px 0;
+  max-width: 460px;
+  text-align: center;
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
+  letter-spacing: -0.04em;
 }
 
 .techs__list {
@@ -70,6 +75,7 @@
   font-size: 14px;
   line-height: 17px;
   font-weight: 400;
+  letter-spacing: -0.04em;
 }
 
 .techs__item-text {
@@ -77,8 +83,11 @@
   padding: 0;
 }
 
-@media screen and (max-width: 1024px) {
-
+@media screen and (max-width: 768px) {
+  .techs {
+    padding-bottom: 90px;
+    padding-top: 90px;
+  }
   .techs__container {
     width: calc(100% - 100px);
   }
@@ -127,5 +136,5 @@
   .techs__list {
     width: calc(100% - 53px);
   }
-  
+
 }
