@@ -10,7 +10,7 @@ function Main () {
     <>
       {/* <Header /> */}
       <Promo />
-      {/* <AboutProject /> */}
+      <AboutProject />
       <Techs />
       <AboutMe />
     </>
