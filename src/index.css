@@ -15,7 +15,7 @@
   font-style: normal;
 }
 
-div {
+/* div {
   outline: 1px solid blue;
 }
 
@@ -25,7 +25,7 @@ h2, h3 {
 
 section {
   outline: 1px red solid;
-}
+} */
 
 @import url('./vendor/normalize.css');
 @import url('./vendor/fonts/fonts.css');

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "../Logo/Logo";
 import './Header.css';
 
 function Header () {
@@ -7,7 +8,7 @@ function Header () {
     <header className="header">
       <div className="header__container">
         <div className="header__container-left">
-          <Link className="header__logo" to="/" />
+          <Logo />
         </div>
         <div className="header__container-right">
           <Link className="header__link" to="/signup">Регистрация</Link>
