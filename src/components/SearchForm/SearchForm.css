@@ -1,0 +1,123 @@
+.search {
+  margin: 0;
+  padding: 70px 0 80px 0;
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.search__container {
+  margin: 0;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 140px);
+  max-width: 1140px;
+  background-color: var(--grey-ui);
+  border-radius: 9px;
+}
+
+.search__form {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: auto 1fr auto;
+  width: 100%;
+}
+
+.search__form::before {
+  content: '';
+  display: inline-block;
+  width: 34px;
+  height: 34px;
+  background-image: url(../../images/icon-search_grey.svg);
+  background-size: 34px 34px;
+  fill: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.search__input {
+  margin: 0;
+  padding: 0 10px 0 0;
+  font-size: 18px;
+  line-height: 20px;
+  background-color: transparent;
+  border: none;
+}
+
+.search__input::placeholder {
+  color: var(--grey-text);
+}
+
+.search__input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--blue);
+}
+
+.search__submit {
+  margin: 0;
+  padding: 0;
+  width: 80px;
+  height: 34px;
+  background-image: url(../../images/icon-search.svg);
+  background-size: 13px 14px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: var(--blue);
+  border: none;
+  border-radius: 48px;
+  justify-self: end;
+  cursor: pointer;
+}
+
+.search__label {
+  margin: 0 0 0 30px;
+  padding: 0 0 0 30px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-left: 1px solid var(--grey-border);
+}
+
+.search__toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  background-color: #EBEBEB;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  border-radius: 16px;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(50, 50, 71, 0.08), 0px 4px 8px rgba(50, 50, 71, 0.06);
+}
+
+.search__toggle::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--grey-bg);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: 0.5s;
+}
+
+.search__toggle:checked::before {
+  transform: translateX(100%);
+  background-color: var(--white);
+}
+
+.search__toggle:checked {
+  background-color: var(--accent-green);
+}
