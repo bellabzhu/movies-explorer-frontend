@@ -15,6 +15,7 @@ function Register () {
               className="form__input" 
               placeholder="Виталий" 
               type="text"
+              required
             />
           </label>
           <span className="form__text-error">Что-то пошло не так...</span>
@@ -23,7 +24,8 @@ function Register () {
             <input 
               className="form__input" 
               placeholder="yandex.@yandex.ru"
-              type="email" 
+              type="email"
+              required
             />
           </label>
           <span className="form__text-error"></span>
@@ -33,6 +35,7 @@ function Register () {
               className="form__input form__input_error" 
               type="password" 
               placeholder="Придумайте надежный пароль" 
+              required
             />
           </label>
           <span className="form__text-error">Что-то пошло не так...</span>
