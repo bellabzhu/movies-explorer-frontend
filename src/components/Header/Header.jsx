@@ -7,11 +7,11 @@ function Header () {
     <header className="header">
       <div className="header__container">
         <div className="header__container-left">
-          <Link to="/" className="header__logo" />
+          <Link className="header__logo" to="/" />
         </div>
         <div className="header__container-right">
-          <button>Регистрация</button>
-          <button>Войти</button>
+          <Link className="header__link" to="/signup">Регистрация</Link>
+          <Link className="header__link header__link_color_blue" to="/signin">Войти</Link>
         </div>
       </div>
     </header>

@@ -8,6 +8,14 @@
   justify-content: center;
 }
 
+.header_place_films {
+  background-color: var(--grey-bg-light);
+}
+
+.header_place_register {
+  background-color: var(--white);
+}
+
 .header__container {
   margin: 0;
   padding: 0;
@@ -25,4 +33,37 @@
   width: 38px;
   height: 38px;
   background-image: url(../../images/logo.svg);
+}
+
+.header__link {
+  display: inline-block;
+  margin: 0 0 0 10px;
+  padding: 0 20px;
+  font-size: 12px;
+  line-height: 32px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.header__link_color_blue {
+  background-color: var(--blue);
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 768px) {
+  .header__container {
+    width: calc(100% - 100px);
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header__container {
+    width: calc(100% - 28px);
+  }
+  .header__link {
+    font-size: 10px;
+    padding: 0 12px;
+    margin-right: 2px;
+  }
 }
