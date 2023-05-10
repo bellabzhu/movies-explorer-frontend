@@ -30,6 +30,7 @@
   padding: 17px 0;
   text-decoration: none;
   width: 100%;
+  transition: 0.2s linear;
 }
 
 .portfolio__list-item:nth-child(2) {

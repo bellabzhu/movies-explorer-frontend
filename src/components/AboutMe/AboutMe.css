@@ -81,6 +81,12 @@
   grid-row: 4;
   grid-column: 1;
   align-self: end;
+  opacity: 1;
+  transition: 0.2s linear;
+}
+
+.about-me__link:hover {
+  opacity: 0.7;
 }
 
 .about-me__pic {
@@ -99,7 +105,6 @@
   .about-me {
     padding-bottom: 90px;
     padding-top: 90px;
-
   }
 
   .about-me__container {
