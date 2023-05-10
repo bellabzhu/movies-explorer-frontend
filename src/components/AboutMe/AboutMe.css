@@ -69,20 +69,25 @@
   max-width: 600px;
 }
 
-.about-me__link {
+.about-me__link-container {
   margin: 0;
   padding: 26px 0 4px 0;
+  grid-row: 4;
+  grid-column: 1;
+  align-self: end;
+}
+
+.about-me__link {
+  margin: 0;
+  padding: 0;
+  opacity: 1;
+  transition: 0.2s linear;
+  cursor: pointer;
   font-size: 14px;
   line-height: 17px;
   font-weight: 500;
   text-decoration: none;
   color: var(--text);
-  cursor: pointer;
-  grid-row: 4;
-  grid-column: 1;
-  align-self: end;
-  opacity: 1;
-  transition: 0.2s linear;
 }
 
 .about-me__link:hover {
@@ -167,7 +172,7 @@
     padding-bottom: 40px;
   }
 
-  .about-me__link {
+  .about-me__link-container {
     grid-row: 5;
   }
 }
@@ -186,11 +191,6 @@
   .about-me__header {
     font-size: 18px;
     line-height: 22px;
-  }
-
-  .about-me__link {
-    font-size: 14px;
-    line-height: 17px;
   }
 
 }
