@@ -43,7 +43,7 @@
   .not-found__subheader {
     padding-bottom: 184px;
   }
-
+  
 }
 
 @media screen and (max-width: 425px) {
@@ -67,5 +67,5 @@
     align-self: end;
     padding-bottom: 30px;
   }
-  
+
 }
