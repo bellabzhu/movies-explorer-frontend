@@ -1,10 +1,12 @@
 .header {
   margin: 0;
   padding: 0;
+  position: relative;
   width: 100%;
   min-height: 74px;
   display: flex;
   justify-content: center;
+  z-index: 200;
 }
 
 .header_place_main {

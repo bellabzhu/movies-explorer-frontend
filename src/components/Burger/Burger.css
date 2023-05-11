@@ -1,0 +1,142 @@
+.burger__button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  background-image: url(../../images/icon-burger.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 28px 23px;
+  opacity: 1;
+}
+
+.burger__button:focus,
+.burger__button:hover {
+  opacity: 0.7;
+}
+
+.burger__button:focus .burger__icon,
+.burger__button:hover .burger__icon {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.burger__button.show .burger__icon {
+  transform: rotate(45deg);
+}
+
+.burger__button.show .burger__icon::before {
+  transform: translateY(0) rotate(45deg);
+}
+
+.burger__button.show .burger__icon::after {
+  transform: translateY(0) rotate(-45deg);
+}
+
+.burger__container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 68%;
+  max-width: 400px;
+  background-color: #fff;
+  z-index: 999;
+  transform: translateX(100%);
+  transition: all 0.3s ease-in-out;
+}
+
+.burger__container.show {
+  transform: translateX(0);
+}
+
+.burger__close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 22px;
+  height: 22px;
+  background-image: url(../../images/icon-close-btn.svg);
+  background-size: 22px 22px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.burger__links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.burger__links a.active {
+  font-weight: bold;
+}
+
+.burger__link {
+  margin: 0 0 16px 0;
+  padding: 4px 0;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.burger__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 7px;
+}
+
+.page-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.burger__container.show + .page-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media screen and (min-width: 769px) {
+
+  .burger__button {
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 425px) {
+
+  .page-overlay {
+    display: none;
+  }
+
+  .burger__container {
+    width: 100%;
+    max-width: initial;
+  }
+
+  .burger__close {
+    top: 14px;
+    right: 14px;
+  }
+
+}

@@ -1,6 +1,5 @@
 import Header from '../Header/Header';
 import './Profile.css';
-import { Link } from 'react-router-dom';
 
 function Profile () {
   return(

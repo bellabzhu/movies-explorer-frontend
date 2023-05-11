@@ -1,5 +1,6 @@
 import './Navigation.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import Burger from '../Burger/Burger';
 
 function Navigation ({ isLogged }) {
 
@@ -9,20 +10,23 @@ function Navigation ({ isLogged }) {
       (
       <>
         <div className="nav__container-left">
-          <NavLink className="nav__link" to="/movies">Фильмы</NavLink>
-          <NavLink className="nav__link nav__link_type_bold" to="/saved-movies">Сохраненные фильмы</NavLink>
+          <NavLink className="nav__link nav__link_type_movies" to="/movies">Фильмы</NavLink>
+          <NavLink className="nav__link nav__link_type_saved" to="/saved-movies">Сохраненные фильмы</NavLink>
         </div>
-        <NavLink className="nav__container-right" to="/profile">
-          <p className="nav__link">Аккаунт</p>
+        <div className="nav__container-right">
+          <Burger />
+          <NavLink className="nav__container-right" to="/profile">
+          <p className="nav__link nav__link_type_profile">Аккаунт</p>
           <div className="nav__icon-profile"></div>
-        </NavLink>
+          </NavLink>
+        </div>
       </>
       )
       :
       (
       <>
-        <NavLink className="nav__link" to="/signup">Регистрация</NavLink>
-        <NavLink className="nav__link nav__link_color_blue" to="/signin">Войти</NavLink>
+        <NavLink className="nav__link nav__link_type_signup" to="/signup">Регистрация</NavLink>
+        <NavLink className="nav__link nav__link_type_signin" to="/signin">Войти</NavLink>
       </>
       )
     }
