@@ -7,6 +7,7 @@ function Profile () {
     <>
       <Header 
         place="profile" 
+        isLogged={true}
       />
       <section className="profile">
         <div className="profile__container">

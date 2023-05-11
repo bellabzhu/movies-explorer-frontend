@@ -8,7 +8,8 @@ function SavedMovies () {
   return(
     <>
       <Header 
-        place="saved" 
+        place="saved"
+        isLogged={true}
       />
       <SearchForm />
       <MoviesCardList />

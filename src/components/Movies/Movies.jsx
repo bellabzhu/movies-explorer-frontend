@@ -10,6 +10,7 @@ function Movies () {
     <>
       <Header 
         place="movies"
+        isLogged={true}
       />
       <SearchForm />
       <MoviesCardList />

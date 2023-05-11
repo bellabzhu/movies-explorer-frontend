@@ -10,7 +10,8 @@ function Main () {
   return (
     <>
       <Header 
-        place="main" 
+        place="main"
+        isLogged={false}
       />
       <Promo />
       <AboutProject />

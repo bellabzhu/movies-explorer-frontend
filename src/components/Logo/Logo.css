@@ -5,6 +5,8 @@
   width: 38px;
   height: 38px;
   background-image: url(../../images/logo.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
   opacity: 1;
   transition: 0.2s linear;
 }
