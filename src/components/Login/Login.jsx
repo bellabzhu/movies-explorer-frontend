@@ -3,6 +3,7 @@ import './Login.css';
 
 function Login () {
   return(
+    <main>
       <section className="login">
         <div className="login__container">
           <Form 
@@ -37,6 +38,7 @@ function Login () {
           </Form>
         </div>
       </section>
+    </main>
   )
 }
 

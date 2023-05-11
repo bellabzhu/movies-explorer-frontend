@@ -17,6 +17,7 @@ function Profile () {
                 className="profile__input" 
                 type="text"
                 placeholder="Виталий"
+                required
               />
             </label>
             <label className="profile__label">Email
@@ -24,6 +25,7 @@ function Profile () {
                 className="profile__input" 
                 type="email" 
                 placeholder="google@google.com"
+                required
               />
             </label>
           </form>

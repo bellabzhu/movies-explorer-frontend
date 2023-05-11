@@ -11,8 +11,10 @@ function SavedMovies () {
         place="saved"
         isLogged={true}
       />
-      <SearchForm />
-      <MoviesCardList />
+      <main>
+        <SearchForm />
+        <MoviesCardList />
+      </main>
       <Footer />
     </>
   )

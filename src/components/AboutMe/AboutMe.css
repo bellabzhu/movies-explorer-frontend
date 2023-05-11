@@ -87,7 +87,7 @@
   font-weight: 500;
   text-decoration: none;
   color: var(--text);
-  transition: 0.2s linear;
+  transition: 0.1s linear;
 }
 
 .about-me__link:hover {

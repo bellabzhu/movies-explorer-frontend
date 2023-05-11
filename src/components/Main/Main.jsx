@@ -6,17 +6,18 @@ import Techs from '../Techs/Techs';
 import Footer from '../Footer/Footer';
 
 function Main () {
-
   return (
     <>
       <Header 
         place="main"
         isLogged={false}
       />
-      <Promo />
-      <AboutProject />
-      <Techs />
-      <AboutMe />
+      <main>
+        <Promo />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+      </main>
       <Footer />
     </>
   );

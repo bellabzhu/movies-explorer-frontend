@@ -6,13 +6,9 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 import './App.css';
 
 function App () {
-
-  const [currentUser, setCurrentUser] = useState('Петя');
-
   return (
     <div className="app">
       <Routes>

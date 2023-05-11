@@ -26,7 +26,7 @@
   color: var(--text);
   text-decoration: none;
   opacity: 1;
-  transition: 0.2s linear;
+  transition: 0.1s linear;
 }
 
 .nav__link:hover {
@@ -54,6 +54,8 @@
   display: flex;
   align-items: center;
   text-decoration: none;
+  opacity: 1;
+  transition: 0.1s linear;
 }
 
 .nav__icon-profile {
@@ -84,7 +86,7 @@
   .nav__link_type_movies,
   .nav__link_type_saved,
   .nav__link_type_profile,
-  .nav__icon-profile,
+  .nav__link_type_profile,
   .nav__container-left {
     display: none;
   }

@@ -94,11 +94,13 @@
   .card__title {
     font-size: 12px;
     line-height: 18px;
+    font-weight: 700;
   }
 
   .card__duration {
     font-size: 10px;
     line-height: 18px;
+    font-weight: 700;
   }
 
 }

@@ -44,7 +44,7 @@
   text-decoration: none;
   color: var(--text);
   opacity: 1;
-  transition: 0.2s linear;
+  transition: 0.1s linear;
 }
 
 .footer__item_pract {

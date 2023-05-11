@@ -8,9 +8,9 @@
   background-repeat: no-repeat;
   background-position: center center;
   opacity: 1;
-  transition: 0.2s linear;
+  transition: 0.1s linear;
 }
 
 .logo:hover {
-  opacity: 0.8;
+  opacity: 0.7;
 }

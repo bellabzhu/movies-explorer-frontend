@@ -1,9 +1,9 @@
 import './Navigation.css';
 import { NavLink } from 'react-router-dom';
 import Burger from '../Burger/Burger';
+import IconProfile from '../IconProfile/IconProfile';
 
 function Navigation ({ isLogged }) {
-
   return(
     <nav className={isLogged ? "nav nav_status_logged" : "nav"}>
     {isLogged ? 
@@ -15,9 +15,8 @@ function Navigation ({ isLogged }) {
         </div>
         <div className="nav__container-right">
           <Burger />
-          <NavLink className="nav__container-right" to="/profile">
-          <p className="nav__link nav__link_type_profile">Аккаунт</p>
-          <div className="nav__icon-profile"></div>
+          <NavLink className="nav__link nav__link_type_profile" to="/profile">
+            <IconProfile />
           </NavLink>
         </div>
       </>

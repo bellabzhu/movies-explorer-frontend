@@ -5,15 +5,16 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css';
 
 function Movies () {
-
   return (
     <>
       <Header 
         place="movies"
         isLogged={true}
       />
-      <SearchForm />
-      <MoviesCardList />
+      <main>
+        <SearchForm />
+        <MoviesCardList />
+      </main>
       <Footer />
     </>
   );

@@ -7,13 +7,11 @@ import card_4 from '../../images/card_4.png';
 import card_5 from '../../images/card_5.png';
 import card_6 from '../../images/card_6.png';
 import card_7 from '../../images/card_7.png';
-import card_8 from '../../images/card_8.png';
-import card_9 from '../../images/card_9.png';
 
 function MoviesCardList () {
   return(
     <section className="movies-list">
-      <div className="movies-list__container">
+      <ul className="movies-list__container">
         <MoviesCard 
           title="В погоне за Бенкси"
           img={card_1}
@@ -56,7 +54,7 @@ function MoviesCardList () {
           duration="137 минут"
           isSaved={false}
         />
-      </div>
+      </ul>
     </section>
   )
 }

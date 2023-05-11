@@ -69,18 +69,22 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  transition: 0.1s linear;
+}
+
+.burger__close:hover {
+  opacity: 0.7;
 }
 
 .burger__links {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  margin: 0;
+  padding: 160px 0 92px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(3, auto) 1fr;
+  justify-items: center;
   height: 100%;
-}
-
-.burger__links a.active {
-  font-weight: bold;
+  box-sizing: border-box;
 }
 
 .burger__link {
@@ -91,11 +95,22 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
+  opacity: 1;
+  transition: 0.1s linear;
+}
+
+.burger__link:last-child {
+  align-self: end;
+  margin-bottom: 0;
+}
+
+.burger__link.active {
+  text-decoration: underline;
+  text-underline-offset: 7px;
 }
 
 .burger__link:hover {
-  text-decoration: underline;
-  text-underline-offset: 7px;
+  opacity: 0.7;
 }
 
 .page-overlay {

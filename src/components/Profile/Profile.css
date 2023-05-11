@@ -87,7 +87,7 @@
   line-height: 16px;
   color: var(--text);
   opacity: 1;
-  transition: 0.2s linear;
+  transition: 0.1s linear;
   border: none;
   background-color: transparent;
   cursor: pointer;
@@ -107,7 +107,7 @@
   line-height: 16px;
   color: var(--accent-pink);
   opacity: 1;
-  transition: 0.2s linear;
+  transition: 0.1s linear;
   text-align: center;
   border: none;
   background-color: transparent;
