@@ -15,17 +15,5 @@
   font-style: normal;
 }
 
-/* div {
-  outline: 1px solid blue;
-}
-
-h2, h3 {
-  outline: 1px pink solid;
-}
-
-section {
-  outline: 1px red solid;
-} */
-
 @import url('./vendor/normalize.css');
 @import url('./vendor/fonts/fonts.css');
