@@ -9,7 +9,9 @@ function Main () {
 
   return (
     <>
-      <Header />
+      <Header 
+        place="main" 
+      />
       <Promo />
       <AboutProject />
       <Techs />

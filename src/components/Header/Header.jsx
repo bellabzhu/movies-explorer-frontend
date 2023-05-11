@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import './Header.css';
 
-function Header () {
+function Header ({ place }) {
 
   return (
-    <header className="header">
+    <header className={`header header_place_${place}`}>
       <div className="header__container">
         <div className="header__container-left">
           <Logo />

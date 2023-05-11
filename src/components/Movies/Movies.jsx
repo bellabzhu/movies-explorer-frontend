@@ -8,7 +8,9 @@ function Movies () {
 
   return (
     <>
-      <Header />
+      <Header 
+        place="movies"
+      />
       <SearchForm />
       <MoviesCardList />
       <Footer />
