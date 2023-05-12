@@ -2,6 +2,7 @@ import './Register.css';
 import Form from '../Form/Form';
 
 function Register () {
+  
   return(
     <main>
       <section className="register">

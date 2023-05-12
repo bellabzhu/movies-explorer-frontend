@@ -2,7 +2,7 @@
   margin: 0;
   padding: 70px 0 0 0;
   display: flex;
-  align-items: start;
+  align-items: flex-start;
   background-color: var(--white);
   box-sizing: border-box;
 }

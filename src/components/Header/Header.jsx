@@ -2,12 +2,12 @@ import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 import './Header.css';
 
-function Header ({ place, isLogged }) {
+function Header ({ place, isLoggedIn }) {
   return (
     <header className={`header header_place_${place}`}>
       <div className="header__container">
           <Logo />
-          <Navigation isLogged={isLogged} />
+          <Navigation isLoggedIn={isLoggedIn} />
       </div>
     </header>
   );

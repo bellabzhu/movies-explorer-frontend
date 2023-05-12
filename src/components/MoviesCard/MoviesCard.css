@@ -10,6 +10,7 @@
   background-color: var(--white);
   box-sizing: border-box;
   box-shadow: none;
+  cursor: pointer;
 }
 
 .card:hover {

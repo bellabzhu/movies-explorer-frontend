@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 import Burger from '../Burger/Burger';
 import IconProfile from '../IconProfile/IconProfile';
 
-function Navigation ({ isLogged }) {
+function Navigation ({ isLoggedIn }) {
   return(
-    <nav className={isLogged ? "nav nav_status_logged" : "nav"}>
-    {isLogged ? 
+    <nav className={isLoggedIn ? "nav nav_status_logged" : "nav"}>
+    {isLoggedIn ? 
       (
       <>
         <div className="nav__container-left">

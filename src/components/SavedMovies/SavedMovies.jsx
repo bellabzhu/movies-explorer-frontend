@@ -9,7 +9,7 @@ function SavedMovies () {
     <>
       <Header 
         place="saved"
-        isLogged={true}
+        isLoggedIn={true}
       />
       <main>
         <SearchForm />

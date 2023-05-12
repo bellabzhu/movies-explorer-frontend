@@ -9,7 +9,7 @@ function Movies () {
     <>
       <Header 
         place="movies"
-        isLogged={true}
+        isLoggedIn={true}
       />
       <main>
         <SearchForm />

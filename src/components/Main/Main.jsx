@@ -5,12 +5,12 @@ import AboutMe from '../AboutMe/AboutMe';
 import Techs from '../Techs/Techs';
 import Footer from '../Footer/Footer';
 
-function Main () {
+function Main ({ isLoggedIn }) {
   return (
     <>
       <Header 
         place="main"
-        isLogged={false}
+        isLoggedIn={isLoggedIn}
       />
       <main>
         <Promo />
