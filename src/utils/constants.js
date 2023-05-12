@@ -1,24 +1,24 @@
-const baseUrlMain = 'https://api.bella.nomoredomains.monster';
-const baseUrlMovies = 'https://api.nomoreparties.co';
+const BASE_URL_MAIN = 'https://api.bella.nomoredomains.monster';
+const BASE_URL_MOVIES = 'https://api.nomoreparties.co';
 
 export const apiConfigMain = {
-  baseUrl: baseUrlMain,
+  baseUrl: BASE_URL_MAIN,
   headers: {
     Accept: "application/json",
     'Content-Type': 'application/json'
   },
-  signIn: `${baseUrlMain}/signin`,
-  signUp: `${baseUrlMain}/signup`,
-  logout: `${baseUrlMain}/logout`,
-  user: `${baseUrlMain}/users/me`,
-  movies: `${baseUrlMain}/movies`,
+  signIn: `${BASE_URL_MAIN}/signin`,
+  signUp: `${BASE_URL_MAIN}/signup`,
+  logout: `${BASE_URL_MAIN}/logout`,
+  user: `${BASE_URL_MAIN}/users/me`,
+  movies: `${BASE_URL_MAIN}/movies`,
 };
 
 export const apiConfigMovies = {
-  baseUrl: baseUrlMovies,
+  baseUrl: BASE_URL_MOVIES,
   headers: {
     Accept: "application/json",
     'Content-Type': 'application/json'
   },
-  movies: `${baseUrlMovies}/beatfilm-movies`,
+  movies: `${BASE_URL_MOVIES}/beatfilm-movies`,
 };

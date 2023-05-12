@@ -1,7 +1,28 @@
 import Form from '../Form/Form';
 import './Login.css';
+import { useState } from 'react';
 
-function Login () {
+function Login ({ onLogin }) {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onLogin({
+      email: email,
+      password: password,
+    });
+  };
+
   return(
     <main>
       <section className="login">
@@ -12,6 +33,7 @@ function Login () {
             askLinkText="Регистрация"
             askLink="/signup"
             submitBtnText="Войти"
+            onSubmit={onSubmit}
           >
             <label className="form__label">
             E-mail
@@ -21,6 +43,8 @@ function Login () {
                 type="email"
                 required
                 name="email"
+                value={email}
+                onChange={handleEmailChange}
               />
             </label>
             <span className="form__text-error"></span>
@@ -32,6 +56,8 @@ function Login () {
                 placeholder="Придумайте надежный пароль" 
                 required
                 name="password"
+                value={password}
+                onChange={handlePasswordChange}
               />
             </label>
             <span className="form__text-error">Что-то пошло не так...</span>

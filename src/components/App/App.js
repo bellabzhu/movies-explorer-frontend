@@ -13,15 +13,23 @@ import './App.css';
 function App () {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState({ name: '', email: '', password: '', _id: '' });
+  const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
+
+  const onRegister = ({ name, email, password }) => {
+    console.log(name, email, password);
+  };
+
+  const onLogin = ({ email, password}) => {
+    console.log(email, password);
+  };
 
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
           <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
-          <Route path="/signin" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
+          <Route path="/signin" element={<Login onLogin={onLogin} />} />
+          <Route path="/signup" element={<Register onRegister={onRegister} />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/saved-movies" element={<SavedMovies />} />
           <Route path="/profile" element={<Profile />} />

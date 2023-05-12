@@ -1,8 +1,34 @@
 import './Register.css';
 import Form from '../Form/Form';
+import { useState } from 'react';
 
-function Register () {
-  
+function Register ({ onRegister }) {
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onRegister({
+      name: name,
+      email: email,
+      password: password,
+    });
+  };
+
   return(
     <main>
       <section className="register">
@@ -13,6 +39,7 @@ function Register () {
             askLinkText="Войти"
             askLink="/signin"
             submitBtnText="Зарегистрироваться"
+            onSubmit={onSubmit}
           >
             <label className="form__label">
             Имя
@@ -22,6 +49,8 @@ function Register () {
                 type="text"
                 required
                 name="name"
+                value={name}
+                onChange={handleNameChange}
               />
               </label>
               <span className="form__text-error">Что-то пошло не так...</span>
@@ -33,6 +62,8 @@ function Register () {
                   type="email"
                   required
                   name="email"
+                  value={email}
+                  onChange={handleEmailChange}
                 />
               </label>
               <span className="form__text-error"></span>
@@ -44,6 +75,8 @@ function Register () {
                   placeholder="Придумайте надежный пароль" 
                   required
                   name="password"
+                  value={password}
+                  onChange={handlePasswordChange}
                 />
               </label>
               <span className="form__text-error">Что-то пошло не так...</span>
