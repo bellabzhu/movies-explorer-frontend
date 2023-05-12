@@ -1,0 +1,136 @@
+.form__header {
+  margin: 0;
+  padding: 40px 0;
+  width: 100%;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.form__form {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.form__label {
+  display: block;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: 10px;
+  line-height: 12px;
+  color: var(--grey-text);
+}
+
+.form__input {
+  margin: 0;
+  padding: 5px 0 10px 0;
+  border: none;
+  width: 100%;
+  border-bottom: 1px solid var(--grey-border);
+  background-color: transparent;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.form__input_error {
+  color: var(--accent-pink);
+}
+
+.form__input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--blue);
+}
+
+.form__btn-submit {
+  margin: 0;
+  padding: 15px;
+  display: block;
+  border: 0;
+  border-radius: 3px;
+  background-color: var(--blue);
+  width: 100%;
+  color: var(--white);
+}
+
+.form__link-container {
+  margin: 0;
+  padding: 134px 0 0 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.form__text-ask {
+  margin: 0;
+  padding: 16px 6px 0 0;
+  display: inline;
+  font-size: 14px;
+  line-height: 17px;
+  font-weight: 400;
+  color: var(--grey-text);
+}
+
+.form__link {
+  margin: 0;
+  padding: 16px 0 0 0;
+  display: inline;
+  text-decoration: none;
+  color: var(--blue);
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.form__text-error {
+  margin: 0;
+  padding: 6px 0 6px 0;
+  display: block;
+  color: var(--accent-pink);
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  width: 100%;
+}
+
+.form__text-error:empty {
+  display: block;
+  height: 12px;
+}
+
+@media screen and (max-width: 425px) {
+
+  .form__submit {
+    align-self: end;
+  }
+
+  .form__header {
+    padding-bottom: 80px;
+    text-align: center;
+  }
+
+  .form__link-container {
+    align-self: end;
+    padding-bottom: 30px;
+    padding-top: 0;
+  }
+
+  .form__btn-submit {
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .form__link {
+    padding-top: 14px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+
+  .form__text-ask {
+    padding-top: 14px;
+    font-size: 12px;
+    line-height: 14px;
+  }
+  
+}
