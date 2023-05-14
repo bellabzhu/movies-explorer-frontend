@@ -9,6 +9,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { signUp, signIn, signOut } from '../../utils/MainApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 
 function App () {
@@ -68,14 +69,18 @@ function App () {
               error={error}  
             />
           }/>
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/saved-movies" element={<SavedMovies />} />
-          <Route path="/profile" element={
-            <Profile 
-              error={error}
-              onSignOut={handleSignOut}
-            />
-          }/>
+
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}> 
+            <Route path="/movies" element={<Movies />} />
+            <Route path="/saved-movies" element={<SavedMovies />} />
+            <Route path="/profile" element={
+              <Profile 
+                error={error}
+                onSignOut={handleSignOut}
+              />
+            }/>
+          </Route>
+
           <Route path="*" element={<NotFound /> } />
         </Routes>
       </CurrentUserContext.Provider>
