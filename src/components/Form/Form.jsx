@@ -2,8 +2,9 @@ import './Form.css';
 import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
 
-function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit }) {
+function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, error }) {
 
+  console.log(error);
   return(
     <>
       <Logo />
@@ -12,6 +13,7 @@ function Form ({ children, header, askText, submitBtnText, askLinkText, askLink,
         {children}
       </form>
       <div className="form__link-container">
+          <span className="form__text-error">{error.isError ? error.text : ''}</span>
           <button 
               className="form__btn-submit" 
               type="submit"

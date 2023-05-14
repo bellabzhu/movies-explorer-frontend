@@ -1,12 +1,13 @@
 import { apiConfigMain } from "./constants";
 
-const checkResponse = (res) => {
+const checkResponse = async (res) => {
+  const data = await res.json();
   return res.ok
-    ? res.json()
-    : Promise.reject(`Ошибка: ${res.status}`);
+    ? data
+    : Promise.reject(data);
 };
 
-export const signup = async ({ name, email, password }) => {
+export const signUp = async ({ name, email, password }) => {
   const res = await fetch(apiConfigMain.signUp, {
     method: 'POST',
     headers: {
@@ -22,7 +23,7 @@ export const signup = async ({ name, email, password }) => {
   return checkResponse(res);
 };
 
-export const signin = async ({ email, password }) => {
+export const signIn = async ({ email, password }) => {
   const res = await fetch(apiConfigMain.signIn, {
     method: 'POST',
     headers: {
@@ -32,6 +33,17 @@ export const signin = async ({ email, password }) => {
       password: `${password}`,
       email: `${email}`
     }),
+    credentials: 'include',
+  });
+  return checkResponse(res);
+};
+
+export const signOut = async () => {
+  const res = await fetch(apiConfigMain.signOut, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     credentials: 'include',
   });
   return checkResponse(res);

@@ -9,7 +9,7 @@ export const apiConfigMain = {
   },
   signIn: `${BASE_URL_MAIN}/signin`,
   signUp: `${BASE_URL_MAIN}/signup`,
-  logout: `${BASE_URL_MAIN}/logout`,
+  signOut: `${BASE_URL_MAIN}/signOut`,
   user: `${BASE_URL_MAIN}/users/me`,
   movies: `${BASE_URL_MAIN}/movies`,
 };

@@ -70,6 +70,18 @@
   justify-content: center;
 }
 
+.form__text-error {
+  margin: 0;
+  padding: 0 0 10px 0;
+  display: block;
+  color: var(--accent-pink);
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 400;
+  width: 100%;
+  text-align: center;
+}
+
 .form__text-ask {
   margin: 0;
   padding: 16px 6px 0 0;
@@ -96,7 +108,7 @@
   opacity: 0.7;
 }
 
-.form__text-error {
+.form__input-text-error {
   margin: 0;
   padding: 6px 0 6px 0;
   display: block;
@@ -107,7 +119,7 @@
   width: 100%;
 }
 
-.form__text-error:empty {
+.form__input-text-error:empty {
   display: block;
   height: 12px;
 }

@@ -1,7 +1,16 @@
 import Header from '../Header/Header';
 import './Profile.css';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useContext} from 'react';
 
-function Profile () {
+function Profile ({ error, onSignOut }) {
+
+  const currentUser = useContext(CurrentUserContext)
+
+  const onSignOutClick = () => {
+    onSignOut();
+  };
+
   return(
     <>
       <Header 
@@ -10,13 +19,13 @@ function Profile () {
       />
       <section className="profile">
         <div className="profile__container">
-          <h1 className="profile__header">Привет, Виталий!</h1>
+          <h1 className="profile__header">{`Привет, ${currentUser.name}!`}</h1>
           <form className="profile__form">
             <label className="profile__label">Имя
               <input 
                 className="profile__input" 
                 type="text"
-                placeholder="Виталий"
+                placeholder={currentUser.name}
                 required
               />
             </label>
@@ -24,7 +33,7 @@ function Profile () {
               <input 
                 className="profile__input" 
                 type="email" 
-                placeholder="google@google.com"
+                placeholder={currentUser.email}
                 required
               />
             </label>
@@ -34,7 +43,7 @@ function Profile () {
               className="profile__btn-edit" 
             >Редактировать
             </button>
-          <button className="profile__btn-logout">Выйти из профиля</button>
+          <button className="profile__btn-logout" onClick={onSignOutClick}>Выйти из профиля</button>
         </div>
         </div>
       </section>

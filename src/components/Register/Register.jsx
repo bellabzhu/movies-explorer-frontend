@@ -2,7 +2,7 @@ import './Register.css';
 import Form from '../Form/Form';
 import { useState } from 'react';
 
-function Register ({ onRegister }) {
+function Register ({ onRegister, error }) {
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -40,6 +40,7 @@ function Register ({ onRegister }) {
             askLink="/signin"
             submitBtnText="Зарегистрироваться"
             onSubmit={onSubmit}
+            error={error}
           >
             <label className="form__label">
             Имя
@@ -53,7 +54,7 @@ function Register ({ onRegister }) {
                 onChange={handleNameChange}
               />
               </label>
-              <span className="form__text-error">Что-то пошло не так...</span>
+              <span className="form__input-text-error">Что-то пошло не так...</span>
               <label className="form__label">
               E-mail
                 <input 
@@ -66,7 +67,7 @@ function Register ({ onRegister }) {
                   onChange={handleEmailChange}
                 />
               </label>
-              <span className="form__text-error"></span>
+              <span className="form__input-text-error"></span>
               <label className="form__label">
               Пароль
                 <input 
@@ -79,7 +80,7 @@ function Register ({ onRegister }) {
                   onChange={handlePasswordChange}
                 />
               </label>
-              <span className="form__text-error">Что-то пошло не так...</span>
+              <span className="form__input-text-error">Что-то пошло не так...</span>
             </Form>
         </div>
       </section>

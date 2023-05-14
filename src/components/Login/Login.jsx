@@ -2,7 +2,7 @@ import Form from '../Form/Form';
 import './Login.css';
 import { useState } from 'react';
 
-function Login ({ onLogin }) {
+function Login ({ onLogin, error }) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +34,7 @@ function Login ({ onLogin }) {
             askLink="/signup"
             submitBtnText="Войти"
             onSubmit={onSubmit}
+            error={error}
           >
             <label className="form__label">
             E-mail
@@ -47,7 +48,7 @@ function Login ({ onLogin }) {
                 onChange={handleEmailChange}
               />
             </label>
-            <span className="form__text-error"></span>
+            <span className="form__input-text-error"></span>
             <label className="form__label">
             Пароль
               <input 
@@ -60,7 +61,7 @@ function Login ({ onLogin }) {
                 onChange={handlePasswordChange}
               />
             </label>
-            <span className="form__text-error">Что-то пошло не так...</span>
+            <span className="form__input-text-error">Что-то пошло не так...</span>
           </Form>
         </div>
       </section>
