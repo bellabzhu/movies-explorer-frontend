@@ -1,31 +1,17 @@
-import './Register.css';
 import Form from '../Form/Form';
-import { useState } from 'react';
+import { useFormWithValidation } from '../../hooks/useFormValidation';
+import './Register.css';
 
 function Register ({ onRegister, error }) {
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
+  const regForm = useFormWithValidation({ name: '', email: '', password: '' });
 
   const onSubmit = (e) => {
     e.preventDefault();
     onRegister({
-      name: name,
-      email: email,
-      password: password,
+      name: regForm.values.name,
+      email: regForm.values.email,
+      password: regForm.values.password,
     });
   };
 
@@ -41,6 +27,7 @@ function Register ({ onRegister, error }) {
             submitBtnText="Зарегистрироваться"
             onSubmit={onSubmit}
             error={error}
+            isValid={regForm.isValid}
           >
             <label className="form__label">
             Имя
@@ -50,11 +37,11 @@ function Register ({ onRegister, error }) {
                 type="text"
                 required
                 name="name"
-                value={name}
-                onChange={handleNameChange}
+                value={regForm.values.name}
+                onChange={(e) => regForm.handleChange(e)}
               />
               </label>
-              <span className="form__input-text-error">Что-то пошло не так...</span>
+              <span className="form__input-text-error form__input-text-error-name">{regForm.errors.name}</span>
               <label className="form__label">
               E-mail
                 <input 
@@ -63,24 +50,24 @@ function Register ({ onRegister, error }) {
                   type="email"
                   required
                   name="email"
-                  value={email}
-                  onChange={handleEmailChange}
+                  value={regForm.values.email}
+                  onChange={(e) => regForm.handleChange(e)}
                 />
               </label>
-              <span className="form__input-text-error"></span>
+              <span className="form__input-text-error form__input-text-error-email">{regForm.errors.email}</span>
               <label className="form__label">
               Пароль
-                <input 
+                <input
                   className="form__input form__input_error" 
                   type="password" 
                   placeholder="Придумайте надежный пароль" 
                   required
                   name="password"
-                  value={password}
-                  onChange={handlePasswordChange}
+                  value={regForm.values.password}
+                  onChange={(e) => regForm.handleChange(e)}
                 />
               </label>
-              <span className="form__input-text-error">Что-то пошло не так...</span>
+              <span className="form__input-text-error form__input-text-error-pass">{regForm.errors.password}</span>
             </Form>
         </div>
       </section>

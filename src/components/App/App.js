@@ -1,3 +1,8 @@
+import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { signUp, signIn, signOut } from '../../utils/MainApi';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -5,11 +10,6 @@ import Profile from '../Profile/Profile';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import NotFound from '../NotFound/NotFound';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { signUp, signIn, signOut } from '../../utils/MainApi';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import './App.css';
 
 function App () {
@@ -70,7 +70,7 @@ function App () {
             />
           }/>
 
-          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />}> 
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />} > 
             <Route path="/movies" element={<Movies />} />
             <Route path="/saved-movies" element={<SavedMovies />} />
             <Route path="/profile" element={

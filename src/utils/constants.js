@@ -22,3 +22,7 @@ export const apiConfigMovies = {
   },
   movies: `${BASE_URL_MOVIES}/beatfilm-movies`,
 };
+
+export const REG_EMAIL = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+export const REG_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+export const REG_NAME = /^[a-zA-ZА-Яа-яЁё'\- ]{2,}$/

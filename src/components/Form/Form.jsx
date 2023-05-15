@@ -1,10 +1,12 @@
-import './Form.css';
-import Logo from '../Logo/Logo';
 import { Link } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
+import Logo from '../Logo/Logo';
+import './Form.css';
 
-function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, error }) {
+function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, error, isValid }) {
 
-  console.log(error);
+  console.log(isValid);
+
   return(
     <>
       <Logo />
@@ -18,6 +20,7 @@ function Form ({ children, header, askText, submitBtnText, askLinkText, askLink,
               className="form__btn-submit" 
               type="submit"
               onClick={onSubmit}
+              disabled={isValid}
           >
             {submitBtnText}
           </button>
