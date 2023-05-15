@@ -33,7 +33,7 @@
   line-height: 17px;
 }
 
-.form__input_error {
+.form__input-error {
   color: var(--accent-pink);
 }
 

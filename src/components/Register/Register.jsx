@@ -32,42 +32,43 @@ function Register ({ onRegister, formError }) {
             <label className="form__label">
             Имя
               <input 
-                className="form__input" 
+                className={regForm.errors.name ? "form__input form__input-error" : "form__input"} 
                 placeholder="Виталий" 
                 type="text"
                 required
                 name="name"
                 value={regForm.values.name}
                 onChange={(e) => regForm.handleChange(e)}
-                noValidate
+                minLength={2}
+                maxLength={30}
               />
               </label>
               <span className="form__input-text-error form__input-text-error-name">{regForm.errors.name}</span>
               <label className="form__label">
               E-mail
                 <input 
-                  className="form__input" 
+                  className={regForm.errors.email ? "form__input form__input-error" : "form__input"} 
                   placeholder="yandex.@yandex.ru"
                   type="email"
                   required
                   name="email"
                   value={regForm.values.email}
                   onChange={(e) => regForm.handleChange(e)}
-                  noValidate
+                  minLength={1}
                 />
               </label>
               <span className="form__input-text-error form__input-text-error-email">{regForm.errors.email}</span>
               <label className="form__label">
               Пароль
                 <input
-                  className="form__input form__input_error" 
+                  className={regForm.errors.password ? "form__input form__input-error" : "form__input"} 
                   type="password" 
                   placeholder="Придумайте надежный пароль" 
                   required
                   name="password"
                   value={regForm.values.password}
                   onChange={(e) => regForm.handleChange(e)}
-                  noValidate
+                  minLength={1}
                 />
               </label>
               <span className="form__input-text-error form__input-text-error-pass">{regForm.errors.password}</span>

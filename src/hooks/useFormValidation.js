@@ -12,28 +12,29 @@ export function useFormWithValidation(inputValues) {
     const value = target.value;
     setValues({...values, [name]: value});
 
-    if (value.length === 0) {
+    if (value.length < 1) {
       setErrors(state => ({...state, [name]: 'Это обязательное поле'}))
       setIsValid(false);
+      return;
     } else if (name === 'name' && (value.length < 2)) {
-      setErrors(state => ({...state, [name]: 'Имя должно быть больше 2 символов'}))
+      setErrors(state => ({...state, [name]: 'Имя должно быть не менее 2 символов'}))
       setIsValid(false);
     } else if (name === 'name' && !REG_NAME.test(value)) {
       setErrors(state => ({...state, [name]: 'Имя может содержать только буквы, пробел и дефис'}))
       setIsValid(false);
+      return;
     } else if (name === 'email' && !REG_EMAIL.test(value)) {
       setErrors(state => ({...state, [name]: 'Некорректный e-mail. Проверьте формат'}));
       setIsValid(false)
+      return;
     } else if (name === 'name' && (value.length > 30)) {
       setErrors(state => ({...state, [name]: 'Имя должно быть меньше 30 символов'}))
       setIsValid(false);
+      return;
     } else {
       setErrors({...errors, [name]: target.validationMessage });
-      setIsValid(false);
-      return;
     };
     setIsValid(target.closest("form").checkValidity());
-    console.log('в хуке', isValid);
   };
 
   const resetForm = useCallback(
@@ -45,5 +46,5 @@ export function useFormWithValidation(inputValues) {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm };
+  return { values, handleChange, errors, isValid, setIsValid, resetForm };
 };

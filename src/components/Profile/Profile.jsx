@@ -33,7 +33,7 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
           <form className="profile__form">
             <label className="profile__label">Имя
               <input 
-                className="profile__input" 
+                className={profileForm.errors.name ? "profile__input profile__input-error" : "profile__input"}
                 type="text"
                 placeholder={currentUser.name}
                 name="name"
@@ -43,9 +43,10 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
                 onChange={(e) => profileForm.handleChange(e)}
               />
             </label>
+            <span className="form__input-text-error form__input-text-error-name">{profileForm.errors.name}</span>
             <label className="profile__label">Email
               <input 
-                className="profile__input" 
+                className={profileForm.errors.email ? "profile__input profile__input-error" : "profile__input"} 
                 type="email" 
                 placeholder={currentUser.email}
                 name="email"
@@ -55,6 +56,7 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
                 onChange={(e) => profileForm.handleChange(e)}
               />
             </label>
+            <span className="form__input-text-error form__input-text-error-name">{profileForm.errors.email}</span>
           </form>
           <div className="profile__link-container">
           <span className="form__text-error">{formError.isError ? formError.text : ''}</span>

@@ -14,6 +14,9 @@ function Login ({ onLogin, formError }) {
     });
   };
 
+  // const inputStyle = 
+  // console.log(logForm.errors.email)
+
   return(
     <main>
       <section className="login">
@@ -30,8 +33,8 @@ function Login ({ onLogin, formError }) {
           >
             <label className="form__label">
             E-mail
-              <input 
-                className="form__input" 
+              <input
+                className={logForm.errors.email ? "form__input form__input-error" : "form__input"} 
                 placeholder="yandex.@yandex.ru"
                 type="email"
                 required
@@ -44,9 +47,9 @@ function Login ({ onLogin, formError }) {
             <span className="form__input-text-error">{logForm.errors.email}</span>
             <label className="form__label">
             Пароль
-              <input 
-                className="form__input form__input_error" 
-                type="password" 
+              <input
+                className={logForm.errors.password ? "form__input form__input-error" : "form__input"} 
+                type="password"
                 placeholder="Придумайте надежный пароль" 
                 required
                 name="password"
