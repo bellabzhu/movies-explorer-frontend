@@ -39,6 +39,7 @@ function Register ({ onRegister, error }) {
                 name="name"
                 value={regForm.values.name}
                 onChange={(e) => regForm.handleChange(e)}
+                noValidate
               />
               </label>
               <span className="form__input-text-error form__input-text-error-name">{regForm.errors.name}</span>
@@ -52,6 +53,7 @@ function Register ({ onRegister, error }) {
                   name="email"
                   value={regForm.values.email}
                   onChange={(e) => regForm.handleChange(e)}
+                  noValidate
                 />
               </label>
               <span className="form__input-text-error form__input-text-error-email">{regForm.errors.email}</span>
@@ -65,6 +67,7 @@ function Register ({ onRegister, error }) {
                   name="password"
                   value={regForm.values.password}
                   onChange={(e) => regForm.handleChange(e)}
+                  noValidate
                 />
               </label>
               <span className="form__input-text-error form__input-text-error-pass">{regForm.errors.password}</span>

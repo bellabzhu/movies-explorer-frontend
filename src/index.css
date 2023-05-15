@@ -10,6 +10,8 @@
   --grey-text: #A0A0A0;
   --grey-border: #E8E8E8;
   --grey-dark: #DDDEE3;
+  --disabled-text: #F8F8F8;
+  --disabled-btn: #C2C2C2;
   font-family: 'Inter', Arial, sans-serif;
   font-weight: 400;
   font-style: normal;

@@ -1,20 +1,6 @@
 import { useState, useCallback } from 'react';
 import { REG_NAME, REG_EMAIL } from "../utils/constants";
 
-//хук управления формой
-// export function useForm() {
-//   const [values, setValues] = React.useState({});
-
-//   const handleChange = (e) => {
-//     const target = e.target;
-//     const value = target.value;
-//     const name = target.name;
-//     setValues({...values, [name]: value});
-//   };
-
-//   return {values, handleChange, setValues};
-// };
-
 export function useFormWithValidation(inputValues) {
   const [values, setValues] = useState(inputValues);
   const [errors, setErrors] = useState({});
@@ -25,9 +11,10 @@ export function useFormWithValidation(inputValues) {
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});
-    
+
     if (value.length === 0) {
       setErrors(state => ({...state, [name]: 'Это обязательное поле'}))
+      setIsValid(false);
     } else if (name === 'name' && (value.length < 2)) {
       setErrors(state => ({...state, [name]: 'Имя должно быть больше 2 символов'}))
       setIsValid(false);
@@ -42,10 +29,11 @@ export function useFormWithValidation(inputValues) {
       setIsValid(false);
     } else {
       setErrors({...errors, [name]: target.validationMessage });
+      setIsValid(false);
       return;
     };
     setIsValid(target.closest("form").checkValidity());
-    console.log(isValid);
+    console.log('в хуке', isValid);
   };
 
   const resetForm = useCallback(

@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useRef, useEffect } from 'react';
 import Logo from '../Logo/Logo';
 import './Form.css';
 
-function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, error, isValid }) {
-
-  console.log(isValid);
+function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, error, isValid}) {
 
   return(
     <>
