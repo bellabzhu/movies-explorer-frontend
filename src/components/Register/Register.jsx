@@ -2,7 +2,7 @@ import Form from '../Form/Form';
 import { useFormWithValidation } from '../../hooks/useFormValidation';
 import './Register.css';
 
-function Register ({ onRegister, error }) {
+function Register ({ onRegister, formError }) {
 
   const regForm = useFormWithValidation({ name: '', email: '', password: '' });
 
@@ -26,7 +26,7 @@ function Register ({ onRegister, error }) {
             askLink="/signin"
             submitBtnText="Зарегистрироваться"
             onSubmit={onSubmit}
-            error={error}
+            formError={formError}
             isValid={regForm.isValid}
           >
             <label className="form__label">

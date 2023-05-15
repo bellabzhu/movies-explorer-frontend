@@ -48,3 +48,18 @@ export const signOut = async () => {
   });
   return checkResponse(res);
 };
+
+export const editProfile = async ({ name, email }) => {
+  const res = await fetch(apiConfigMain.user, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: `${name}`,
+      email: `${email}`
+    }),
+    credentials: 'include',
+  });
+  return checkResponse(res); 
+};

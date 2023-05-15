@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { signUp, signIn, signOut } from '../../utils/MainApi';
+import { signUp, signIn, signOut, editProfile } from '../../utils/MainApi';
 import Main from '../Main/Main';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
@@ -16,8 +16,7 @@ function App () {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
-  const [error, setError] = useState({ isError: false, text: '' });
-  console.log(currentUser);
+  const [formError, setFormError] = useState({ isError: false, text: '' });
 
   const navigate = useNavigate();
 
@@ -25,20 +24,20 @@ function App () {
     signUp({ name, email, password })
       .then(() => {
         navigate('/signin');
-        setError({ isError: false, text: '' })
+        setFormError({ isError: false, text: '' })
       })
-      .catch((err) => setError({ isError: true, text: err.message }))
+      .catch((err) => setFormError({ isError: true, text: err.message }))
   };
 
   const handleLogin = ({ email, password }) => {
     signIn({ email, password })
       .then((res) => {
-        setCurrentUser({ name: res.name, email: email });
+        setCurrentUser({ name: res.name, email: res.email });
         setIsLoggedIn(true);
         navigate('/');
-        setError({ isError: false, text: '' })
+        setFormError({ isError: false, text: '' })
       })
-      .catch((err) => setError({ isError: true, text: err.message }))
+      .catch((err) => setFormError({ isError: true, text: err.message }))
   };
 
   const handleSignOut = () => {
@@ -46,10 +45,19 @@ function App () {
       .then(() => {
         setCurrentUser({ name: '', email: '' });
         setIsLoggedIn(false);
-        setError({ isError: false, text: '' })
+        setFormError({ isError: false, text: '' })
         navigate('/');
       })
-      .catch((err) => setError({ isError: true, text: err.message }))
+      .catch((err) => setFormError({ isError: true, text: err.message }))
+  };
+
+  const handleEditProfile = ({ name, email }) => {
+    editProfile({ name, email })
+      .then((res) => {
+        setCurrentUser({ name: res.name, email: res.email });
+        setFormError({ isError: false, text: '' })
+      })
+      .catch((err) => setFormError({ isError: true, text: err.message }));
   };
 
   return (
@@ -60,13 +68,13 @@ function App () {
           <Route path="/signin" element={
             <Login 
               onLogin={handleLogin}
-              error={error}
+              formError={formError}
             />
           }/>
           <Route path="/signup" element={
             <Register 
               onRegister={handleRegister} 
-              error={error}  
+              formError={formError}  
             />
           }/>
 
@@ -75,7 +83,8 @@ function App () {
             <Route path="/saved-movies" element={<SavedMovies />} />
             <Route path="/profile" element={
               <Profile 
-                error={error}
+                formError={formError}
+                onEditProfile={handleEditProfile}
                 onSignOut={handleSignOut}
               />
             }/>

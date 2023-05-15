@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import './Form.css';
 
-function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, error, isValid}) {
+function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, formError, isValid}) {
 
   return(
     <>
@@ -12,7 +12,7 @@ function Form ({ children, header, askText, submitBtnText, askLinkText, askLink,
         {children}
       </form>
       <div className="form__link-container">
-          <span className="form__text-error">{error.isError ? error.text : ''}</span>
+          <span className="form__text-error">{formError.isError ? formError.text : ''}</span>
           <button 
               className="form__btn-submit" 
               type="submit"
