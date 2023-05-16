@@ -1,13 +1,26 @@
 import Header from '../Header/Header';
-import './Profile.css';
+import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import { useContext} from 'react';
+import { useState, useContext } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormValidation';
+import './Profile.css';
 
 function Profile ({ formError, onSignOut, onEditProfile }) {
 
-  const profileForm = useFormWithValidation({ name: '', email: '' });
   const currentUser = useContext(CurrentUserContext);
+  const profileForm = useFormWithValidation({ name: currentUser.name, email: currentUser.email });
+  const [isEditable, setIsEditable] = useState(false);
+  
+  const onEditBtnClick = () => {
+    setIsEditable(true);
+  };
+
+  const handleChange = (e) => {
+    profileForm.handleChange(e);
+    if (e.target.value === currentUser[e.target.name]) {
+      profileForm.setIsValid(false);
+    };
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,6 +28,7 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
       name: profileForm.values.name,
       email: profileForm.values.email,
     });
+    setIsEditable(false);
   };
 
   const onSignOutClick = () => {
@@ -31,16 +45,17 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
         <div className="profile__container">
           <h1 className="profile__header">{`Привет, ${currentUser.name}!`}</h1>
           <form className="profile__form">
-            <label className="profile__label">Имя
+            <label className="profile__label profile__label-readonly">Имя
               <input 
                 className={profileForm.errors.name ? "profile__input profile__input-error" : "profile__input"}
                 type="text"
                 placeholder={currentUser.name}
                 name="name"
                 required
-                defaultValue={currentUser.name}
                 value={profileForm.values.name}
-                onChange={(e) => profileForm.handleChange(e)}
+                onChange={handleChange}
+                readOnly={isEditable ? false : true}
+                minLength={2}
               />
             </label>
             <span className="form__input-text-error form__input-text-error-name">{profileForm.errors.name}</span>
@@ -52,26 +67,36 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
                 name="email"
                 required
                 value={profileForm.values.email}
-                defaultValue={currentUser.name}
-                onChange={(e) => profileForm.handleChange(e)}
+                onChange={handleChange}
+                readOnly={isEditable ? false : true}
+                minLength={2}
               />
             </label>
             <span className="form__input-text-error form__input-text-error-name">{profileForm.errors.email}</span>
           </form>
           <div className="profile__link-container">
           <span className="form__text-error">{formError.isError ? formError.text : ''}</span>
-          <button 
-            className="profile__btn-edit" 
-            disabled={profileForm.isValid}
-            onClick={handleSubmit}
-          >Редактировать
-          </button>
+          {isEditable
+            ?
+            <BtnSubmit
+              isBtnDisabled={!profileForm.isValid}
+              onSubmit={handleSubmit}
+              submitBtnText="Сохранить"
+            />
+            :
+            <button 
+              type="button"
+              className="profile__btn-edit"
+              onClick={onEditBtnClick}
+            >Редактировать
+            </button>
+          }
           <button className="profile__btn-logout" onClick={onSignOutClick}>Выйти из профиля</button>
         </div>
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
 export default Profile;

@@ -23,6 +23,7 @@ function App () {
   const handleRegister = ({ name, email, password }) => {
     signUp({ name, email, password })
       .then(() => {
+        // TO DO реализовать автоматический вход и редирект на /movies
         navigate('/signin');
         setFormError({ isError: false, text: '' })
       })
@@ -34,7 +35,7 @@ function App () {
       .then((res) => {
         setCurrentUser({ name: res.name, email: res.email });
         setIsLoggedIn(true);
-        navigate('/');
+        navigate('/movies');
         setFormError({ isError: false, text: '' })
       })
       .catch((err) => setFormError({ isError: true, text: err.message }))

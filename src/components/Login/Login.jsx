@@ -14,9 +14,6 @@ function Login ({ onLogin, formError }) {
     });
   };
 
-  // const inputStyle = 
-  // console.log(logForm.errors.email)
-
   return(
     <main>
       <section className="login">
