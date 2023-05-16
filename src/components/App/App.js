@@ -23,9 +23,7 @@ function App () {
   const handleRegister = ({ name, email, password }) => {
     signUp({ name, email, password })
       .then(() => {
-        // TO DO реализовать автоматический вход и редирект на /movies
-        navigate('/signin');
-        setFormError({ isError: false, text: '' })
+        handleLogin({ email, password })
       })
       .catch((err) => setFormError({ isError: true, text: err.message }))
   };
