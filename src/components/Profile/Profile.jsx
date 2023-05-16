@@ -13,6 +13,7 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
   
   const onEditBtnClick = () => {
     setIsEditable(true);
+    profileForm.setIsValid(false);
   };
 
   const handleChange = (e) => {
