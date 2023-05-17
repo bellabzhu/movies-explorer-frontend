@@ -16,13 +16,17 @@ function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
     const width = window.screen.width;
     if (width > 1095) {
       setRenderedMovies({...renderedMovies, renderItemsCount: 12, renderMoreCount: 3 });
-      console.log(width, '12, 3')
-      console.log(renderedMovies)
     } else if (width > 684) {
       setRenderedMovies({...renderedMovies, renderItemsCount: 8, renderMoreCount: 2 });
     } else {
       setRenderedMovies({ ...renderedMovies, renderItemsCount: 5, renderMoreCount: 2 });
     };
+  };
+
+  const checkIsCardLiked = (filmId) => {
+    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
+    // ищем в массиве такой айди. если есть, то возвращаем тру, если нет, то фолс.
+
   };
 
   const handleLoadMore = () => {
@@ -32,7 +36,6 @@ function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
 
   useEffect(() => {
     setRenderedMovies({...renderedMovies, movies: movies});
-    console.log(renderedMovies.movies, 'rendered');
   }, [movies]);
 
   useEffect(() => {
@@ -50,7 +53,7 @@ function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
           return <MoviesCard 
                   key={movie.id}
                   movie={movie}
-                  isLiked={true}
+                  isLiked={false}
                   onLike={onLike}
                   onDislike={onDislike}
                 />

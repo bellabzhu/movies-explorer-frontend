@@ -1,4 +1,4 @@
-import { apiConfigMain } from "./constants";
+import { apiConfigMain, BASE_URL_MOVIES } from "./constants";
 import { checkResponse } from "./checkResponse";
 
 export const getUserInfo = async () => {
@@ -66,20 +66,34 @@ export const getFavMovies = async () => {
   return checkResponse(res);
 };
 
-export const likeMovie = async (movieData) => {
+export const likeMovie = async (movie) => {
+  const { country, director, duration, year, description, nameRU, nameEN, trailerLink } = movie;
+  const image = BASE_URL_MOVIES + movie.image.url;
+  const thumbnail = BASE_URL_MOVIES + movie.image.formats.thumbnail.url;
+  const id = movie.id;
   const res = await fetch(apiConfigMain.movies, {
     method: 'POST',
     headers: apiConfigMain.headers,
     body: JSON.stringify({
-      movieData
+      country,
+      director,
+      duration,
+      year,
+      description,
+      nameRU,
+      nameEN,
+      trailerLink,
+      image,
+      thumbnail,
+      id,
     }),
     credentials: 'include',
   });
-  return checkResponse(res); 
+  return checkResponse(res);
 };
 
-export const dislikeMovie = async (movieId) => {
-  const res = await fetch(`${apiConfigMain.movies}/${movieId}`, {
+export const dislikeMovie = async (id) => {
+  const res = await fetch(`${apiConfigMain.movies}/${id}`, {
     method: 'DELETE',
     headers: apiConfigMain.headers,
     credentials: 'include',
