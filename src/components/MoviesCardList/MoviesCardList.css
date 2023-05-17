@@ -31,6 +31,18 @@
   font-weight: 400;
 }
 
+.movies-list__info-container {
+  margin: 0;
+  padding: 20px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 396px;
+  min-width: 300px;
+  width: calc(100% - 140px);
+}
+
+
 @media screen and (max-width: 768px) {
 
   .movies-list__container {

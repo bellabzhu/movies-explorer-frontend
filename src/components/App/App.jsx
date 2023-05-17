@@ -68,8 +68,9 @@ function App () {
       .then(allMovies => {
         const filterResult = filterMovies(allMovies, searchParams, setSearchError);
         setSearchedMovies(filterResult);
+        console.log(searchedMovies, 'in app')
       })
-      .catch((err) => setSearchError({ isError: true, text: err.message }))
+      .catch((err) => setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' }))
   };
 
   // Make a request in order to check the token and autorize
