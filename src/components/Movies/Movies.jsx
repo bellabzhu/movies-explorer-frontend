@@ -4,7 +4,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css';
 
-function Movies ({ onSearch, searchedMovies }) {
+function Movies ({ onSearch, searchedMovies, searchError }) {
   return (
     <>
       <Header 
@@ -12,12 +12,17 @@ function Movies ({ onSearch, searchedMovies }) {
         isLoggedIn={true}
       />
       <main>
-        <SearchForm onSearch={onSearch} />
-        <MoviesCardList searchedMovies={searchedMovies} />
+        <SearchForm 
+          onSearch={onSearch} 
+          searchError={searchError} 
+        />
+        <MoviesCardList 
+          searchedMovies={searchedMovies} 
+        />
       </main>
       <Footer />
     </>
   );
-}
+};
 
 export default Movies;

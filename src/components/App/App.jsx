@@ -23,7 +23,7 @@ function App () {
   const [searchedMovies, setSearchedMovies] = useState([]);
   console.log(searchedMovies)
   const [movies, setMovies] = useState([]);
-  const [searchError, setSearchError] = useState(false);
+  const [searchError, setSearchError] = useState({ isError: false, text: '' });
 
   const navigate = useNavigate();
 
@@ -66,14 +66,14 @@ function App () {
       .catch((err) => setFormError({ isError: true, text: err.message }));
   };
 
-  const handleSearchMovies = () => {
+  const handleSearchMovies = (searchParams) => {
     getMovies()
-      .then(res => {
-        // временно показываем все фильмы
-        setSearchedMovies(res);
-        // return filterMovies(movies)
+      .then(allMovies => {
+        console.log(searchParams)
+        const filterResult = filterMovies(allMovies, searchParams, setSearchError);
+        setSearchedMovies(filterResult);
       })
-      .catch((err) => setSearchError(true))
+      .catch((err) => setSearchError({ isError: true, text: err.message }))
   };
 
   // Do a request in order to check token and autorize
@@ -112,10 +112,14 @@ function App () {
             <Route path="/movies" element={
               <Movies 
                 searchedMovies={searchedMovies}
-                onSearch={handleSearchMovies} />
+                onSearch={handleSearchMovies}
+                searchError={searchError}
+              />
             } />
             <Route path="/saved-movies" element={
-              <SavedMovies />
+              <SavedMovies 
+                searchError={searchError}
+              />
             } />
             <Route path="/profile" element={
               <Profile 

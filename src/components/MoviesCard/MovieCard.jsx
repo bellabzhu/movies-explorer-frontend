@@ -17,12 +17,12 @@ function MoviesCard ({ movie, isSaved }) {
     <li className="card" onClick={onClickCard}>
       <p className="card__title">{movie.nameRU}</p>
       <p className="card__duration">{minutesToHours(movie.duration)}</p>
-      <img src={`${BASE_URL_MOVIES}/${movie.image.url}`} alt={movie.nameRU} className="card__img" />
+      <img src={`${BASE_URL_MOVIES}${movie.image.url}`} alt={movie.nameRU} className="card__img" />
       <button className={isSaved ? "card__btn card__btn-unsave" : "card__btn card__btn-save"}>
         {isSaved ? <span className="card__icon-saved" /> : "Сохранить"}
       </button>
     </li>
   )
-}
+};
 
 export default MoviesCard;

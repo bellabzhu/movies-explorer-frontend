@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import './SavedMovies.css';
 import Footer from '../Footer/Footer';
 
-function SavedMovies () {
+function SavedMovies ({ searchError }) {
   return(
     <>
       <Header 
@@ -12,7 +12,7 @@ function SavedMovies () {
         isLoggedIn={true}
       />
       <main>
-        <SearchForm />
+        <SearchForm searchError={searchError} />
         <MoviesCardList />
       </main>
       <Footer />

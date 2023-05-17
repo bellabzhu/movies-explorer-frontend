@@ -3,6 +3,7 @@ import './MoviesCardList.css';
 
 function MoviesCardList ({ searchedMovies }) {
 
+  console.log(searchedMovies, 'in cardList')
   
   return(
     <section className="movies-list">
