@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
 function SearchForm ({ onSearch }) {
-  const isUserCheckedBefore = localStorage.getItem('isChecked');
-  const [isChecked, setIsChecked] = useState( isUserCheckedBefore ? true : false);
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    const userCheckedBefore = localStorage.getItem('isChecked');
+    if (userCheckedBefore === 'true') {
+      setIsChecked(true);
+      return;
+    }
+    setIsChecked(false);
+  }, []);
 
   const toggleCheckbox = (e) => {
     setIsChecked(e.target.checked);
-    localStorage.setItem('isChecked', JSON.stringify(isChecked));
+    localStorage.setItem('isChecked', JSON.stringify(e.target.checked));
   };
 
   const searchParams = { isShortFilmsIncluded: isChecked }
