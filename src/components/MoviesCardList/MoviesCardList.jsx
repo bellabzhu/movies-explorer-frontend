@@ -3,19 +3,21 @@ import { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
 
-function MoviesCardList ({ searchedMovies, searchError }) {
+function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
 
   const [screenWidth, setScreenWidth] = useState(window.screen.width);
   const [renderedMovies, setRenderedMovies] = useState({
     renderItemsCount: 5,
     renderMoreCount: 2,
-    movies: searchedMovies
+    movies: movies,
   });
 
   const checkScreenSize = () => {
     const width = window.screen.width;
-    if (width > 1096) {
+    if (width > 1095) {
       setRenderedMovies({...renderedMovies, renderItemsCount: 12, renderMoreCount: 3 });
+      console.log(width, '12, 3')
+      console.log(renderedMovies)
     } else if (width > 684) {
       setRenderedMovies({...renderedMovies, renderItemsCount: 8, renderMoreCount: 2 });
     } else {
@@ -33,18 +35,16 @@ function MoviesCardList ({ searchedMovies, searchError }) {
   }, []);
 
   useEffect(() => {
-    setRenderedMovies({...renderedMovies, movies: searchedMovies});
-  }, [searchedMovies]);
+    setRenderedMovies({...renderedMovies, movies: movies});
+    console.log(renderedMovies.movies, 'rendered');
+  }, [movies]);
 
   useEffect(() => {
     window.addEventListener('resize', checkScreenSize);
     return () => {
       window.removeEventListener('resize', checkScreenSize);
     };
-  }, [screenWidth, searchedMovies]);
-
-  console.log(searchedMovies, 'searchedMovies');
-  console.log(renderedMovies.movies, 'renderedMovies.movies');
+  }, [screenWidth, movies]);
 
   return(
     <section className="movies-list">
@@ -53,7 +53,9 @@ function MoviesCardList ({ searchedMovies, searchError }) {
           return <MoviesCard 
                   key={movie.id}
                   movie={movie}
-                  isSaved={true}
+                  isLiked={true}
+                  onLike={onLike}
+                  onDislike={onDislike}
                 />
         })}
       </ul>
@@ -61,7 +63,7 @@ function MoviesCardList ({ searchedMovies, searchError }) {
         {searchError.isError && 
           <p className="movies-list__error">{searchError.text}</p>
         }
-        {searchedMovies.length > renderedMovies.renderItemsCount && 
+        {movies.length > renderedMovies.renderItemsCount && 
           <BtnSubmit 
             onSubmit={handleLoadMore} 
             isBtnDisabled={false}
@@ -70,7 +72,7 @@ function MoviesCardList ({ searchedMovies, searchError }) {
         }
       </div>
     </section>
-  )
-}
+  );
+};
 
 export default MoviesCardList;

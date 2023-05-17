@@ -2,7 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import { getUserInfo, signUp, signIn, signOut, editProfile } from '../../utils/MainApi';
+import { getUserInfo, signUp, signIn, signOut, editProfile, getFavMovies, likeMovie, dislikeMovie } from '../../utils/MainApi';
 import { getMovies } from '../../utils/MoviesApi';
 import { filterMovies } from '../../utils/filterMovies';
 import Main from '../Main/Main';
@@ -18,10 +18,11 @@ function App () {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [formError, setFormError] = useState({ isError: false, text: '' });
-  // const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const previousSearch = JSON.parse(localStorage.getItem('movies'));
   const [searchedMovies, setSearchedMovies] = useState(previousSearch || []);
   const [searchError, setSearchError] = useState({ isError: false, text: '' });
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = ({ name, email, password }) => {
@@ -29,18 +30,18 @@ function App () {
       .then(() => {
         handleLogin({ email, password })
       })
-      .catch((err) => setFormError({ isError: true, text: err.message }))
+      .catch(err => setFormError({ isError: true, text: err.message }))
   };
 
   const handleLogin = ({ email, password }) => {
     signIn({ email, password })
-      .then((res) => {
+      .then(res => {
         setCurrentUser({ name: res.name, email: res.email });
         setIsLoggedIn(true);
         navigate('/movies');
         setFormError({ isError: false, text: '' })
       })
-      .catch((err) => setFormError({ isError: true, text: err.message }))
+      .catch(err => setFormError({ isError: true, text: err.message }))
   };
 
   const handleSignOut = () => {
@@ -48,19 +49,20 @@ function App () {
       .then(() => {
         setCurrentUser({ name: '', email: '' });
         setIsLoggedIn(false);
-        setFormError({ isError: false, text: '' })
+        setFormError({ isError: false, text: '' });
         navigate('/');
+        localStorage.clear();
       })
-      .catch((err) => setFormError({ isError: true, text: err.message }))
+      .catch(err => setFormError({ isError: true, text: err.message }))
   };
 
   const handleEditProfile = ({ name, email }) => {
     editProfile({ name, email })
-      .then((res) => {
+      .then(res => {
         setCurrentUser({ name: res.name, email: res.email });
-        setFormError({ isError: false, text: '' })
+        setFormError({ isError: false, text: '' });
       })
-      .catch((err) => setFormError({ isError: true, text: err.message }));
+      .catch(err => setFormError({ isError: true, text: err.message }));
   };
 
   const handleSearchMovies = (searchParams) => {
@@ -68,9 +70,32 @@ function App () {
       .then(allMovies => {
         const filterResult = filterMovies(allMovies, searchParams, setSearchError);
         setSearchedMovies(filterResult);
-        console.log(searchedMovies, 'in app')
+        console.log(searchedMovies)
       })
-      .catch((err) => setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' }))
+      .catch(() => setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' }));
+  };
+
+  // возможно перенести внутрь saved movies компонент
+  const handleSearchFavMovies = () => {
+    console.log('handlesearchFAV');
+  }
+
+  const handleLikeMovie = (movieData) => {
+    likeMovie(movieData)
+      .then(likedMovie => {
+        console.log('yes you liked')
+        setSavedMovies(savedMovies.push(likedMovie));
+      })
+      .catch(err => console.log(err.message));
+  };
+
+  const handleDislikeMovie = (movieId) => {
+    dislikeMovie(movieId)
+    .then(dislikedMovie => {
+      console.log(dislikedMovie, 'no you disliked');
+      setSavedMovies(savedMovies.push(dislikedMovie));
+    })
+    .catch(err => console.log(err.message));
   };
 
   // Make a request in order to check the token and autorize
@@ -78,13 +103,19 @@ function App () {
     getUserInfo()
       .then(res => {
         setCurrentUser({ name: res.name, email: res.email })
-      })
-      .then(() => {
         setIsLoggedIn(true);
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch(err => console.log(err.message));
+    getFavMovies()
+      .then(favMovies => {
+        setSavedMovies(favMovies);
+        setSearchError({ isError: false, text: '' });
+        localStorage.setItem('savedMovies', JSON.stringify(favMovies));
+      })
+      .catch(() => setSearchError({ 
+        isError: true, 
+        text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
+      }))
   }, [isLoggedIn]);
 
   return (
@@ -111,11 +142,17 @@ function App () {
                 searchedMovies={searchedMovies}
                 onSearch={handleSearchMovies}
                 searchError={searchError}
+                onDislike={handleDislikeMovie}
+                onLike={handleLikeMovie}
               />
             } />
             <Route path="/saved-movies" element={
               <SavedMovies 
+                savedMovies={savedMovies}
                 searchError={searchError}
+                onSearch={handleSearchFavMovies}
+                onDislike={handleDislikeMovie}
+                onLike={handleLikeMovie}
               />
             } />
             <Route path="/profile" element={

@@ -3,8 +3,10 @@ import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
 import './SavedMovies.css';
 import Footer from '../Footer/Footer';
+import { useEffect } from 'react';
 
-function SavedMovies ({ searchError }) {
+function SavedMovies ({ onSearch, searchError, savedMovies, onLike, onDislike }) {
+
   return(
     <>
       <Header 
@@ -12,8 +14,15 @@ function SavedMovies ({ searchError }) {
         isLoggedIn={true}
       />
       <main>
-        <SearchForm searchError={searchError} />
-        <MoviesCardList />
+        <SearchForm
+          onSearch={onSearch} 
+        />
+        <MoviesCardList 
+          movies={savedMovies}
+          searchError={searchError}
+          onDislike={onDislike}
+          onLike={onLike}
+        />
       </main>
       <Footer />
     </>

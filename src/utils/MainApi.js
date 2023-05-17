@@ -57,3 +57,32 @@ export const editProfile = async ({ name, email }) => {
   });
   return checkResponse(res); 
 };
+
+export const getFavMovies = async () => {
+  const res = await fetch(apiConfigMain.movies, {
+    headers: apiConfigMain.headers,
+    credentials: 'include',
+  });
+  return checkResponse(res);
+};
+
+export const likeMovie = async (movieData) => {
+  const res = await fetch(apiConfigMain.movies, {
+    method: 'POST',
+    headers: apiConfigMain.headers,
+    body: JSON.stringify({
+      movieData
+    }),
+    credentials: 'include',
+  });
+  return checkResponse(res); 
+};
+
+export const dislikeMovie = async (movieId) => {
+  const res = await fetch(`${apiConfigMain.movies}/${movieId}`, {
+    method: 'DELETE',
+    headers: apiConfigMain.headers,
+    credentials: 'include',
+  });
+  return checkResponse(res); 
+};

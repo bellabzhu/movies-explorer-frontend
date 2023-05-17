@@ -5,7 +5,7 @@ export const filterMovies = (movies, searchParams, setSearchError) => {
 
   if (searchResult.length < 1) {
     setSearchError({ isError: true, text: 'Ничего не найдено' });
-    return searchResult;
+    return [];
   };
 
   if (searchParams.isShortFilm) {
