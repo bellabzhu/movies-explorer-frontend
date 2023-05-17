@@ -31,20 +31,17 @@ function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
   };
 
   useEffect(() => {
-    checkScreenSize(screenWidth);
-  }, []);
-
-  useEffect(() => {
     setRenderedMovies({...renderedMovies, movies: movies});
     console.log(renderedMovies.movies, 'rendered');
   }, [movies]);
 
   useEffect(() => {
+    checkScreenSize(screenWidth);
     window.addEventListener('resize', checkScreenSize);
     return () => {
       window.removeEventListener('resize', checkScreenSize);
     };
-  }, [screenWidth, movies]);
+  }, []);
 
   return(
     <section className="movies-list">
