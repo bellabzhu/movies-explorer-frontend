@@ -3,14 +3,17 @@ import './SearchForm.css';
 
 function SearchForm ({ onSearch }) {
   const [isChecked, setIsChecked] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     const userCheckedBefore = localStorage.getItem('isChecked');
-    if (userCheckedBefore === 'true') {
-      setIsChecked(true);
-      return;
-    }
-    setIsChecked(false);
+    setIsChecked(userCheckedBefore === 'true' ? true : false);
+    const userSearchBefore = localStorage.getItem('search');
+    setSearchValue(
+      userSearchBefore 
+        ? userSearchBefore
+        : ''
+    );
   }, []);
 
   const toggleCheckbox = (e) => {
@@ -18,18 +21,30 @@ function SearchForm ({ onSearch }) {
     localStorage.setItem('isChecked', JSON.stringify(e.target.checked));
   };
 
-  const searchParams = { isShortFilmsIncluded: isChecked }
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchParams);
+    localStorage.setItem('search', searchValue);
+    onSearch({
+      isShortFilmsIncluded: isChecked,
+      text: searchValue,
+    });
   };
 
   return(
     <div className="search">
       <div className="search__container">
         <form className="search__form" onSubmit={handleSubmit}>
-          <input className="search__input" placeholder="Поиск фильма"></input>
+          <input 
+            className="search__input" 
+            placeholder="Поиск фильма" 
+            required 
+            value={searchValue}
+            onChange={handleChange}
+          />
           <button className="search__submit" type="submit" />
         </form>
         <label className="search__label">
