@@ -15,16 +15,13 @@ import NotFound from '../NotFound/NotFound';
 import './App.css';
 
 function App () {
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [formError, setFormError] = useState({ isError: false, text: '' });
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [searchedMovies, setSearchedMovies] = useState([]);
-  console.log(searchedMovies)
-  const [movies, setMovies] = useState([]);
+  // const [savedMovies, setSavedMovies] = useState([]);
+  const previousSearch = JSON.parse(localStorage.getItem('movies'));
+  const [searchedMovies, setSearchedMovies] = useState(previousSearch || []);
   const [searchError, setSearchError] = useState({ isError: false, text: '' });
-
   const navigate = useNavigate();
 
   const handleRegister = ({ name, email, password }) => {
@@ -69,14 +66,13 @@ function App () {
   const handleSearchMovies = (searchParams) => {
     getMovies()
       .then(allMovies => {
-        console.log(searchParams)
         const filterResult = filterMovies(allMovies, searchParams, setSearchError);
         setSearchedMovies(filterResult);
       })
       .catch((err) => setSearchError({ isError: true, text: err.message }))
   };
 
-  // Do a request in order to check token and autorize
+  // Make a request in order to check the token and autorize
   useEffect(() => {
     getUserInfo()
       .then(res => {

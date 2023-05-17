@@ -1,12 +1,19 @@
 export const filterMovies = (movies, searchParams, setSearchError) => {
-  if (!searchParams.isShortFilmsIncluded) {
-    movies.filter(({ duration }) => duration <= 40);
+
+  const searchResult = movies.filter(movie => movie.nameRU.toLowerCase().includes(searchParams.keywords.toLowerCase()));
+  localStorage.setItem('movies', JSON.stringify(searchResult));
+
+  if (searchResult.length < 1) {
+    setSearchError({ isError: true, text: 'Ничего не найдено' });
+    return searchResult;
   };
 
-  // если ничего не найдено, то 
-  // setSearchError({ isError: true, text: 'Ничего не найдено'})
+  if (searchParams.isShortFilm) {
+    const filterResult = searchResult.filter(({ duration }) => duration <= 40);
+    setSearchError(filterResult < 1 ? { isError: true, text: 'Ничего не найдено' } : { isError: false, text: '' });
+    return filterResult;
+  };
 
-  // фильтруем по ключевым словам далее
-  const searchResult = [];
+  setSearchError({ isError: false, text: '' });
   return searchResult;
 };

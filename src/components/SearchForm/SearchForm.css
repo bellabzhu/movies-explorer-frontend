@@ -49,6 +49,7 @@
   line-height: 20px;
   background-color: transparent;
   border: none;
+  border-bottom: 1px solid transparent;
 }
 
 .search__input::placeholder {
@@ -81,6 +82,11 @@
 
 .search__submit:hover {
   opacity: 0.7;
+}
+
+.search__submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .search__label {

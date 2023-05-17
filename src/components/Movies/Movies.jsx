@@ -17,7 +17,8 @@ function Movies ({ onSearch, searchedMovies, searchError }) {
           searchError={searchError} 
         />
         <MoviesCardList 
-          searchedMovies={searchedMovies} 
+          searchedMovies={searchedMovies}
+          searchError={searchError}
         />
       </main>
       <Footer />

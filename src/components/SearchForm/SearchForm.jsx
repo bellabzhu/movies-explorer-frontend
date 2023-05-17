@@ -4,6 +4,7 @@ import './SearchForm.css';
 function SearchForm ({ onSearch }) {
   const [isChecked, setIsChecked] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     const userCheckedBefore = localStorage.getItem('isChecked');
@@ -23,14 +24,15 @@ function SearchForm ({ onSearch }) {
 
   const handleChange = (e) => {
     setSearchValue(e.target.value);
+    setIsDisabled(!e.target.value ? true : false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     localStorage.setItem('search', searchValue);
     onSearch({
-      isShortFilmsIncluded: isChecked,
-      text: searchValue,
+      isShortFilm: isChecked,
+      keywords: searchValue,
     });
   };
 
@@ -40,12 +42,16 @@ function SearchForm ({ onSearch }) {
         <form className="search__form" onSubmit={handleSubmit}>
           <input 
             className="search__input" 
-            placeholder="Поиск фильма" 
+            placeholder="Искать фильмы" 
             required 
             value={searchValue}
             onChange={handleChange}
           />
-          <button className="search__submit" type="submit" />
+          <button 
+            className="search__submit" 
+            type="submit"
+            disabled={isDisabled}
+          />
         </form>
         <label className="search__label">
           <input 

@@ -23,6 +23,14 @@
   list-style: none;
 }
 
+.movies-list__error {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  line-height: 20px;
+  font-weight: 400;
+}
+
 @media screen and (max-width: 768px) {
 
   .movies-list__container {
