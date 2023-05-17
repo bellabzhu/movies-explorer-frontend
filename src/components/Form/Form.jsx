@@ -4,7 +4,6 @@ import './Form.css';
 import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
 
 function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, formError, isValid }) {
-  console.log(formError)
   return(
     <>
       <Logo />

@@ -1,8 +1,7 @@
 const BASE_URL_MAIN = 'https://api.bella.nomoredomains.monster';
-const BASE_URL_MOVIES = 'https://api.nomoreparties.co';
+export const BASE_URL_MOVIES = 'https://api.nomoreparties.co';
 
 export const apiConfigMain = {
-  baseUrl: BASE_URL_MAIN,
   headers: {
     Accept: "application/json",
     'Content-Type': 'application/json'
@@ -15,7 +14,6 @@ export const apiConfigMain = {
 };
 
 export const apiConfigMovies = {
-  baseUrl: BASE_URL_MOVIES,
   headers: {
     Accept: "application/json",
     'Content-Type': 'application/json'

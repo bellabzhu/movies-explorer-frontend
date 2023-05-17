@@ -4,7 +4,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css';
 
-function Movies () {
+function Movies ({ onSearch, searchedMovies }) {
   return (
     <>
       <Header 
@@ -12,8 +12,8 @@ function Movies () {
         isLoggedIn={true}
       />
       <main>
-        <SearchForm />
-        <MoviesCardList />
+        <SearchForm onSearch={onSearch} />
+        <MoviesCardList searchedMovies={searchedMovies} />
       </main>
       <Footer />
     </>

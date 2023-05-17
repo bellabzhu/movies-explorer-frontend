@@ -1,11 +1,17 @@
 import './SearchForm.css';
 
-function SearchForm () {
+function SearchForm ({ onSearch }) {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSearch();
+  };
+
   return(
     <div className="search">
       <div className="search__container">
-        <form className="search__form">
-          <input className="search__input" placeholder="Фильм"></input>
+        <form className="search__form" onSubmit={handleSubmit}>
+          <input className="search__input" placeholder="Найти фильм по ключевым словам"></input>
           <button className="search__submit" type="submit" />
         </form>
         <label className="search__label">
@@ -15,6 +21,6 @@ function SearchForm () {
       </div>
     </div>
   )
-}
+};
 
 export default SearchForm;

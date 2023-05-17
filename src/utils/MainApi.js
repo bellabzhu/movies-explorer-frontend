@@ -1,18 +1,18 @@
 import { apiConfigMain } from "./constants";
+import { checkResponse } from "./checkResponse";
 
-const checkResponse = async (res) => {
-  const data = await res.json();
-  return res.ok
-    ? data
-    : Promise.reject(data);
+export const getUserInfo = async () => {
+  const res = await fetch(apiConfigMain.user, {
+    headers: apiConfigMain.headers,
+    credentials: 'include',
+  });
+  return checkResponse(res);
 };
 
 export const signUp = async ({ name, email, password }) => {
   const res = await fetch(apiConfigMain.signUp, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: apiConfigMain.headers,
     body: JSON.stringify({
       name: `${name}`,
       password: `${password}`,
@@ -26,9 +26,7 @@ export const signUp = async ({ name, email, password }) => {
 export const signIn = async ({ email, password }) => {
   const res = await fetch(apiConfigMain.signIn, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: apiConfigMain.headers,
     body: JSON.stringify({
       password: `${password}`,
       email: `${email}`
@@ -41,9 +39,7 @@ export const signIn = async ({ email, password }) => {
 export const signOut = async () => {
   const res = await fetch(apiConfigMain.signOut, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: apiConfigMain.headers,
     credentials: 'include',
   });
   return checkResponse(res);
@@ -52,9 +48,7 @@ export const signOut = async () => {
 export const editProfile = async ({ name, email }) => {
   const res = await fetch(apiConfigMain.user, {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: apiConfigMain.headers,
     body: JSON.stringify({
       name: `${name}`,
       email: `${email}`
