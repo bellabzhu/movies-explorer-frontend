@@ -76,7 +76,7 @@ function App () {
     editProfile({ name, email })
       .then(res => {
         setCurrentUser({ name: res.name, email: res.email });
-        setFormError({ isError: false, text: '' });
+        setFormError({ isError: true, text: 'Данные профиля успешно сохранены' });
       })
       .catch(err => setFormError({ isError: true, text: err.message }))
       .finally(() => setIsSubmiting(false));
