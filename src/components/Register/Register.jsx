@@ -2,7 +2,7 @@ import Form from '../Form/Form';
 import { useFormWithValidation } from '../../hooks/useFormValidation';
 import './Register.css';
 
-function Register ({ onRegister, formError }) {
+function Register ({ onRegister, formError, isSubmiting }) {
 
   const regForm = useFormWithValidation({ name: '', email: '', password: '' });
 
@@ -28,12 +28,13 @@ function Register ({ onRegister, formError }) {
             onSubmit={onSubmit}
             formError={formError}
             isValid={regForm.isValid}
+            isSubmiting={isSubmiting}
           >
             <label className="form__label">
             Имя
               <input 
                 className={regForm.errors.name ? "form__input form__input-error" : "form__input"} 
-                placeholder="Виталий" 
+                placeholder="Как вас зовут?" 
                 type="text"
                 required
                 name="name"
@@ -48,7 +49,7 @@ function Register ({ onRegister, formError }) {
               E-mail
                 <input 
                   className={regForm.errors.email ? "form__input form__input-error" : "form__input"} 
-                  placeholder="yandex.@yandex.ru"
+                  placeholder="google@google.com"
                   type="email"
                   required
                   name="email"

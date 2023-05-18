@@ -25,6 +25,7 @@ function App () {
   const [searchSavedMovies, setSearchedSavedMovies] = useState([]);
   const [searchError, setSearchError] = useState({ isError: false, text: '' });
   const [isLoading, setIsLoading] = useState(false);
+  const [isSubmiting, setIsSubmiting] = useState(false);
   const navigate = useNavigate();
 
   const renderSavedMovies = searchSavedMovies.length > 0 && !searchError.isError
@@ -34,14 +35,17 @@ function App () {
     : savedMovies;
 
   const handleRegister = ({ name, email, password }) => {
+    setIsSubmiting(true);
     signUp({ name, email, password })
       .then(() => {
         handleLogin({ email, password })
       })
       .catch(err => setFormError({ isError: true, text: err.message }))
+      .finally(() => setIsSubmiting(false));
   };
 
   const handleLogin = ({ email, password }) => {
+    setIsSubmiting(true);
     signIn({ email, password })
       .then(res => {
         setCurrentUser({ name: res.name, email: res.email });
@@ -50,9 +54,11 @@ function App () {
         navigate('/movies');
       })
       .catch(err => setFormError({ isError: true, text: err.message }))
+      .finally(() => setIsSubmiting(false));
   };
 
   const handleSignOut = () => {
+    setIsSubmiting(true);
     signOut()
       .then(() => {
         navigate('/');
@@ -62,18 +68,22 @@ function App () {
         localStorage.clear();
       })
       .catch(err => setFormError({ isError: true, text: err.message }))
+      .finally(() => setIsSubmiting(false));
   };
 
   const handleEditProfile = ({ name, email }) => {
+    setIsSubmiting(true);
     editProfile({ name, email })
       .then(res => {
         setCurrentUser({ name: res.name, email: res.email });
         setFormError({ isError: false, text: '' });
       })
-      .catch(err => setFormError({ isError: true, text: err.message }));
+      .catch(err => setFormError({ isError: true, text: err.message }))
+      .finally(() => setIsSubmiting(false));
   };
 
   const handleSearchMovies = (searchParams) => {
+    setIsSubmiting(true);
     setIsLoading(true);
     getMovies()
       .then(allMovies => {
@@ -81,9 +91,12 @@ function App () {
         setSearchedMovies(filterResult);
       })
       .catch(() => {
-        setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' })
+        setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' });
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setIsSubmiting(false);
+        setIsLoading(false);
+      });
   };
 
   const handleSearchSavedMovies = (searchParams) => {
@@ -92,6 +105,7 @@ function App () {
   };
 
   const handleLikeMovie = (movieData) => {
+    setIsSubmiting(true);
     likeMovie(movieData)
       .then(likedMovie => {
         if (!savedMovies.some(movie => movie.id === likedMovie.id)) {
@@ -99,17 +113,20 @@ function App () {
           localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         };
       })
-      .catch(err => console.log(err.message));
+      .catch(err => console.log(err.message))
+      .finally(() => setIsSubmiting(false));
   };
 
   const handleDislikeMovie = (movieId) => {
+    setIsSubmiting(true);
     dislikeMovie(movieId)
       .then(dislikedMovie => {
         const updatedMovies = savedMovies.filter(movie => movie._id !== dislikedMovie._id);
         setSavedMovies(updatedMovies);
         localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
-      .catch(err => console.log(err.message));
+      .catch(err => console.log(err.message))
+      .finally(() => setIsSubmiting(false));
   };
 
   // Make a request in order to check the token and autorize
@@ -142,12 +159,14 @@ function App () {
             <Login 
               onLogin={handleLogin}
               formError={formError}
+              isSubmiting={isSubmiting}
             />
           }/>
           <Route path='/signup' element={
             <Register 
               onRegister={handleRegister} 
-              formError={formError}  
+              formError={formError}
+              isSubmiting={isSubmiting}
             />
           }/>
 
@@ -162,6 +181,7 @@ function App () {
                 onLike={handleLikeMovie}
                 savedMovies={savedMovies}
                 isLoading={isLoading}
+                isSubmiting={isSubmiting}
               />
             } />
             <Route path='/saved-movies' element={
@@ -173,6 +193,7 @@ function App () {
                 onLike={handleLikeMovie}
                 onSearch={handleSearchSavedMovies}
                 isLoading={isLoading}
+                isSubmiting={isSubmiting}
               />
             } />
             <Route path='/profile' element={
@@ -180,6 +201,7 @@ function App () {
                 formError={formError}
                 onEditProfile={handleEditProfile}
                 onSignOut={handleSignOut}
+                isSubmiting={isSubmiting}
               />
             }/>
           </Route>

@@ -1,7 +1,7 @@
 import { BASE_URL_MOVIES } from '../../utils/constants';
 import './MoviesCard.css';
 
-function MoviesCard ({ movie, savedMovies, onLike, onDislike }) {
+function MoviesCard ({ movie, savedMovies, onLike, onDislike, isSubmiting }) {
 
   const imagURl = movie.image.url 
     ? `${BASE_URL_MOVIES}${movie.image.url}`
@@ -43,6 +43,7 @@ function MoviesCard ({ movie, savedMovies, onLike, onDislike }) {
       <button 
         className={isLiked ? "card__btn card__btn-unsave" : "card__btn card__btn-save"}
         onClick={handleCardLike}
+        disabled={isSubmiting}
       >
         {isLiked ? <span className="card__icon-saved" /> : "Сохранить"}
       </button>

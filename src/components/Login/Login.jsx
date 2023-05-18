@@ -2,7 +2,7 @@ import Form from '../Form/Form';
 import { useFormWithValidation } from '../../hooks/useFormValidation';
 import './Login.css';
 
-function Login ({ onLogin, formError }) {
+function Login ({ onLogin, formError, isSubmiting }) {
 
   const logForm = useFormWithValidation({ email: '', password: '' });
 
@@ -27,12 +27,13 @@ function Login ({ onLogin, formError }) {
             onSubmit={onSubmit}
             formError={formError}
             isValid={logForm.isValid}
+            isSubmiting={isSubmiting}
           >
             <label className="form__label">
             E-mail
               <input
                 className={logForm.errors.email ? "form__input form__input-error" : "form__input"} 
-                placeholder="yandex.@yandex.ru"
+                placeholder="google.@google.com"
                 type="email"
                 required
                 name="email"
@@ -47,7 +48,7 @@ function Login ({ onLogin, formError }) {
               <input
                 className={logForm.errors.password ? "form__input form__input-error" : "form__input"} 
                 type="password"
-                placeholder="Придумайте надежный пароль" 
+                placeholder="Ваш пароль" 
                 required
                 name="password"
                 value={logForm.values.password}

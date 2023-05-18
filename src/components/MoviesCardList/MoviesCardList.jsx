@@ -4,7 +4,7 @@ import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
 import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
-function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, isLoading }) {
+function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, isLoading, isSubmiting }) {
 
   const [screenWidth, setScreenWidth] = useState(window.screen.width);
   const [renderedMovies, setRenderedMovies] = useState({
@@ -53,6 +53,7 @@ function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, 
                   onLike={onLike}
                   onDislike={onDislike}
                   savedMovies={savedMovies}
+                  isSubmiting={isSubmiting}
                 />
           })
         }
@@ -66,6 +67,7 @@ function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, 
             onSubmit={handleLoadMore} 
             isBtnDisabled={false}
             submitBtnText="Загрузить еще"
+            isSubmiting={isSubmiting}
           />
         }
       </div>

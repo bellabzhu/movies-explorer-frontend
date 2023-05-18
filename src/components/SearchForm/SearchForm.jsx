@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
-function SearchForm ({ onSearch, isGlobalSearch, setSearchError }) {
+function SearchForm ({ onSearch, isGlobalSearch, setSearchError, isSubmiting }) {
   const [isChecked, setIsChecked] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
@@ -44,6 +44,10 @@ function SearchForm ({ onSearch, isGlobalSearch, setSearchError }) {
     });
   };
 
+  useEffect(() => {
+    setIsDisabled(isSubmiting ? true : false);
+}, [isSubmiting]);
+
   return(
     <div className="search">
       <div className="search__container">
@@ -67,6 +71,7 @@ function SearchForm ({ onSearch, isGlobalSearch, setSearchError }) {
             type="checkbox" 
             onChange={toggleCheckbox}
             checked={isChecked}
+            disabled={isSubmiting}
           />
           Короткометражки
         </label>

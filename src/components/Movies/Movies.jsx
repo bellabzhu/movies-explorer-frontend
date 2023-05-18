@@ -4,7 +4,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css';
 
-function Movies ({ onSearch, savedMovies, searchedMovies, searchError, setSearchError, onLike, onDislike, isLoading }) {
+function Movies ({ onSearch, savedMovies, searchedMovies, searchError, setSearchError, onLike, onDislike, isLoading, isSubmiting }) {
   return (
     <>
       <Header 
@@ -16,6 +16,7 @@ function Movies ({ onSearch, savedMovies, searchedMovies, searchError, setSearch
           onSearch={onSearch}
           isGlobalSearch={true}
           setSearchError={setSearchError}
+          isSubmiting={isSubmiting}
         />
         <MoviesCardList 
           movies={searchedMovies}
@@ -24,6 +25,7 @@ function Movies ({ onSearch, savedMovies, searchedMovies, searchError, setSearch
           onLike={onLike}
           savedMovies={savedMovies}
           isLoading={isLoading}
+          isSubmiting={isSubmiting}
         />
       </main>
       <Footer />

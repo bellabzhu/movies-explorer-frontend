@@ -2,8 +2,20 @@ import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
 import './Form.css';
+import { useEffect, useState } from 'react';
 
-function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, formError, isValid }) {
+function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, formError, isValid, isSubmiting }) {
+
+  const [errorText, setErrorText] = useState('');
+
+  useEffect(() => {
+    setErrorText(formError.isError ? formError.text : '');
+  }, [formError]);
+
+  useEffect(() => {
+    setErrorText('');
+  }, []);
+
   return(
     <>
       <Logo />
@@ -12,10 +24,11 @@ function Form ({ children, header, askText, submitBtnText, askLinkText, askLink,
         {children}
       </form>
       <div className="form__link-container">
-          <span className="form__text-error">{formError.isError ? formError.text : ''}</span>
+          <span className="form__text-error">{errorText}</span>
           <BtnSubmit
             onSubmit={onSubmit}
             isBtnDisabled={!isValid}
+            isSubmiting={isSubmiting}
             submitBtnText={submitBtnText}
           />
           <p className="form__text-ask">{askText}</p>

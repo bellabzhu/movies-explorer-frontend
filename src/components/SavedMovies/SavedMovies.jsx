@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import './SavedMovies.css';
 
-function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLike, onDislike, searchSavedMovies, isLoading }) {
+function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLike, onDislike, searchSavedMovies, isLoading, isSubmiting }) {
   return(
     <>
       <Header 
@@ -16,6 +16,7 @@ function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLi
           onSearch={onSearch} 
           isGlobalSearch={false}
           setSearchError={setSearchError}
+          isSubmiting={isSubmiting}
         />
         <MoviesCardList 
           movies={savedMovies}
@@ -24,6 +25,7 @@ function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLi
           onLike={onLike}
           savedMovies={searchSavedMovies ? searchSavedMovies : savedMovies}
           isLoading={isLoading}
+          isSubmiting={isSubmiting}
         />
       </main>
       <Footer />

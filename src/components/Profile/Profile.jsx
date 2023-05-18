@@ -5,7 +5,7 @@ import { useState, useContext } from 'react';
 import { useFormWithValidation } from '../../hooks/useFormValidation';
 import './Profile.css';
 
-function Profile ({ formError, onSignOut, onEditProfile }) {
+function Profile ({ formError, onSignOut, onEditProfile, isSubmiting }) {
 
   const currentUser = useContext(CurrentUserContext);
   const profileForm = useFormWithValidation({ name: currentUser.name, email: currentUser.email });
@@ -83,6 +83,7 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
               isBtnDisabled={!profileForm.isValid}
               onSubmit={handleSubmit}
               submitBtnText="Сохранить"
+              isSubmiting={isSubmiting}
             />
             :
             <button 
@@ -92,7 +93,7 @@ function Profile ({ formError, onSignOut, onEditProfile }) {
             >Редактировать
             </button>
           }
-          <button className="profile__btn-logout" onClick={onSignOutClick}>Выйти из профиля</button>
+          <button disabled={isSubmiting} className="profile__btn-logout" onClick={onSignOutClick}>Выйти из профиля</button>
         </div>
         </div>
       </section>
