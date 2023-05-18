@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
-function SearchForm ({ onSearch }) {
+function SearchForm ({ onSearch, isGlobalSearch }) {
   const [isChecked, setIsChecked] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
@@ -33,6 +33,7 @@ function SearchForm ({ onSearch }) {
     onSearch({
       isShortFilm: isChecked,
       keywords: searchValue,
+      isGlobalSearch: isGlobalSearch,
     });
   };
 

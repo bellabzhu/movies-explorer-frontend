@@ -14,6 +14,7 @@ function Movies ({ onSearch, savedMovies, searchedMovies, searchError, onLike, o
       <main>
         <SearchForm 
           onSearch={onSearch}
+          isGlobalSearch={true}
         />
         <MoviesCardList 
           movies={searchedMovies}

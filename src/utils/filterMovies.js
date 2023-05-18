@@ -1,7 +1,9 @@
 export const filterMovies = (movies, searchParams, setSearchError) => {
 
   const searchResult = movies.filter(movie => movie.nameRU.toLowerCase().includes(searchParams.keywords.toLowerCase()));
-  localStorage.setItem('movies', JSON.stringify(searchResult));
+  if (searchParams.isGlobalSearch) {
+    localStorage.setItem('movies', JSON.stringify(searchResult));
+  }
 
   if (searchResult.length < 1) {
     setSearchError({ isError: true, text: 'Ничего не найдено' });

@@ -22,9 +22,16 @@ function App () {
   const [savedMovies, setSavedMovies] = useState(previouslySaved);
   const previousSearch = JSON.parse(localStorage.getItem('movies'));
   const [searchedMovies, setSearchedMovies] = useState(previousSearch || []);
+  const [searchSavedMovies, setSearchedSavedMovies] = useState([]);
   const [searchError, setSearchError] = useState({ isError: false, text: '' });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const renderSavedMovies = searchSavedMovies.length > 0 && !searchError.isError
+  ? searchSavedMovies
+  : searchError.isError 
+    ? [] 
+    : savedMovies;
 
   const handleRegister = ({ name, email, password }) => {
     signUp({ name, email, password })
@@ -75,10 +82,10 @@ function App () {
       .catch(() => setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' }));
   };
 
-  // возможно перенести внутрь saved movies компонент
-  const handleSearchFavMovies = () => {
-    console.log('handlesearchFAV');
-  }
+  const handleSearchSavedMovies = (searchParams) => {
+    const filterResult = filterMovies(savedMovies, searchParams, setSearchError);
+    setSearchedSavedMovies(filterResult);
+  };
 
   const handleLikeMovie = (movieData) => {
     likeMovie(movieData)
@@ -152,11 +159,11 @@ function App () {
             } />
             <Route path="/saved-movies" element={
               <SavedMovies 
-                savedMovies={savedMovies}
+                savedMovies={renderSavedMovies}
                 searchError={searchError}
-                onSearch={handleSearchFavMovies}
                 onDislike={handleDislikeMovie}
                 onLike={handleLikeMovie}
+                onSearch={handleSearchSavedMovies}
               />
             } />
             <Route path="/profile" element={
