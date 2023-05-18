@@ -74,12 +74,16 @@ function App () {
   };
 
   const handleSearchMovies = (searchParams) => {
+    setIsLoading(true);
     getMovies()
       .then(allMovies => {
         const filterResult = filterMovies(allMovies, searchParams, setSearchError);
         setSearchedMovies(filterResult);
       })
-      .catch(() => setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' }));
+      .catch(() => {
+        setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' })
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleSearchSavedMovies = (searchParams) => {
@@ -152,18 +156,22 @@ function App () {
                 searchedMovies={searchedMovies}
                 onSearch={handleSearchMovies}
                 searchError={searchError}
+                setSearchError={setSearchError}
                 onDislike={handleDislikeMovie}
                 onLike={handleLikeMovie}
                 savedMovies={savedMovies}
+                isLoading={isLoading}
               />
             } />
             <Route path="/saved-movies" element={
               <SavedMovies 
                 savedMovies={renderSavedMovies}
                 searchError={searchError}
+                setSearchError={setSearchError}
                 onDislike={handleDislikeMovie}
                 onLike={handleLikeMovie}
                 onSearch={handleSearchSavedMovies}
+                isLoading={isLoading}
               />
             } />
             <Route path="/profile" element={

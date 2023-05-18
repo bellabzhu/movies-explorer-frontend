@@ -3,10 +3,8 @@ import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
 import './SavedMovies.css';
 import Footer from '../Footer/Footer';
-import { filterMovies } from '../../utils/filterMovies';
-import { useState } from 'react';
 
-function SavedMovies ({ onSearch, searchError, savedMovies, onLike, onDislike, searchSavedMovies }) {
+function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLike, onDislike, searchSavedMovies, isLoading }) {
 
 
   return(
@@ -19,6 +17,7 @@ function SavedMovies ({ onSearch, searchError, savedMovies, onLike, onDislike, s
         <SearchForm
           onSearch={onSearch} 
           isGlobalSearch={false}
+          setSearchError={setSearchError}
         />
         <MoviesCardList 
           movies={savedMovies}
@@ -26,6 +25,7 @@ function SavedMovies ({ onSearch, searchError, savedMovies, onLike, onDislike, s
           onDislike={onDislike}
           onLike={onLike}
           savedMovies={searchSavedMovies ? searchSavedMovies : savedMovies}
+          isLoading={isLoading}
         />
       </main>
       <Footer />

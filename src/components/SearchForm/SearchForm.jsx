@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './SearchForm.css';
 
-function SearchForm ({ onSearch, isGlobalSearch }) {
+function SearchForm ({ onSearch, isGlobalSearch, setSearchError }) {
   const [isChecked, setIsChecked] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
@@ -29,6 +29,7 @@ function SearchForm ({ onSearch, isGlobalSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSearchError({ isError: false, text: '' });
     localStorage.setItem('search', searchValue);
     onSearch({
       isShortFilm: isChecked,

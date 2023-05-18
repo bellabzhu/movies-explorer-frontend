@@ -2,8 +2,9 @@ import MoviesCard from '../MoviesCard/MovieCard';
 import { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
+import Preloader from '../Preloader/Preloader';
 
-function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike }) {
+function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, isLoading }) {
 
   const [screenWidth, setScreenWidth] = useState(window.screen.width);
   const [renderedMovies, setRenderedMovies] = useState({
@@ -43,7 +44,9 @@ function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike }
   return(
     <section className="movies-list">
       <ul className="movies-list__container">
-        {renderedMovies.movies && renderedMovies.movies.slice(0, renderedMovies.renderItemsCount).map((movie) => {
+        {isLoading 
+          ? <Preloader /> 
+          : renderedMovies.movies && renderedMovies.movies.slice(0, renderedMovies.renderItemsCount).map((movie) => {
           return <MoviesCard 
                   key={movie.id}
                   movie={movie}
@@ -51,7 +54,8 @@ function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike }
                   onDislike={onDislike}
                   savedMovies={savedMovies}
                 />
-        })}
+          })
+        }
       </ul>
       <div className="movies-list__info-container">
         {searchError.isError && 
