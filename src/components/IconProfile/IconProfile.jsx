@@ -6,7 +6,7 @@ function IconProfile() {
       <p className="icon-profile__text">Аккаунт</p>
       <div className="icon-profile__icon" />
     </div>
-  )
-}
+  );
+};
 
 export default IconProfile;

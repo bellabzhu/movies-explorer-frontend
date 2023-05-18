@@ -72,7 +72,7 @@ function SearchForm ({ onSearch, isGlobalSearch, setSearchError }) {
         </label>
       </div>
     </div>
-  )
+  );
 };
 
 export default SearchForm;

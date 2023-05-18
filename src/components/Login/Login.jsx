@@ -60,7 +60,7 @@ function Login ({ onLogin, formError }) {
         </div>
       </section>
     </main>
-  )
-}
+  );
+};
 
 export default Login;

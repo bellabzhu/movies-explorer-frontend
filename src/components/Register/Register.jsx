@@ -76,7 +76,7 @@ function Register ({ onRegister, formError }) {
         </div>
       </section>
     </main>
-  )
-}
+  );
+};
 
 export default Register;

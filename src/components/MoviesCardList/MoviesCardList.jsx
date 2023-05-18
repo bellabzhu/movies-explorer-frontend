@@ -1,8 +1,8 @@
-import MoviesCard from '../MoviesCard/MovieCard';
 import { useState, useEffect } from 'react';
-import './MoviesCardList.css';
+import MoviesCard from '../MoviesCard/MovieCard';
 import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
 import Preloader from '../Preloader/Preloader';
+import './MoviesCardList.css';
 
 function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, isLoading }) {
 

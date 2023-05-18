@@ -1,12 +1,10 @@
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
-import './SavedMovies.css';
 import Footer from '../Footer/Footer';
+import './SavedMovies.css';
 
 function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLike, onDislike, searchSavedMovies, isLoading }) {
-
-
   return(
     <>
       <Header 
@@ -30,7 +28,7 @@ function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLi
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default SavedMovies;

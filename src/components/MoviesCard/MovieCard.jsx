@@ -1,5 +1,5 @@
-import './MoviesCard.css';
 import { BASE_URL_MOVIES } from '../../utils/constants';
+import './MoviesCard.css';
 
 function MoviesCard ({ movie, savedMovies, onLike, onDislike }) {
 
@@ -47,7 +47,7 @@ function MoviesCard ({ movie, savedMovies, onLike, onDislike }) {
         {isLiked ? <span className="card__icon-saved" /> : "Сохранить"}
       </button>
     </li>
-  )
+  );
 };
 
 export default MoviesCard;

@@ -21,6 +21,6 @@ function Main ({ isLoggedIn }) {
       <Footer />
     </>
   );
-}
+};
 
 export default Main;

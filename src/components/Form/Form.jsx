@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import './Form.css';
 import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
+import './Form.css';
 
 function Form ({ children, header, askText, submitBtnText, askLinkText, askLink, onSubmit, formError, isValid }) {
   return(
@@ -21,8 +21,8 @@ function Form ({ children, header, askText, submitBtnText, askLinkText, askLink,
           <p className="form__text-ask">{askText}</p>
           <Link className="form__link" to={askLink}>{askLinkText}</Link>
       </div>
-  </>
-  )
-}
+    </>
+  );
+};
 
 export default Form;

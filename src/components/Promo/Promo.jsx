@@ -1,7 +1,6 @@
 import './Promo.css';
 
 function Promo () {
-
   return (
     <section className="promo">
       <div className="promo__container">
@@ -10,6 +9,6 @@ function Promo () {
       </div>
     </section>
   );
-}
+};
 
 export default Promo;
