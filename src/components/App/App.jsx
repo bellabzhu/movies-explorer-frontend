@@ -46,8 +46,8 @@ function App () {
       .then(res => {
         setCurrentUser({ name: res.name, email: res.email });
         setIsLoggedIn(true);
+        setFormError({ isError: false, text: '' });
         navigate('/movies');
-        setFormError({ isError: false, text: '' })
       })
       .catch(err => setFormError({ isError: true, text: err.message }))
   };
@@ -58,7 +58,6 @@ function App () {
         setCurrentUser({ name: '', email: '' });
         setIsLoggedIn(false);
         setFormError({ isError: false, text: '' });
-        navigate('/');
         localStorage.clear();
       })
       .catch(err => setFormError({ isError: true, text: err.message }))
@@ -130,28 +129,29 @@ function App () {
         isError: true, 
         text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
       }))
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
         <Routes>
-          <Route exact path="/" element={<Main isLoggedIn={isLoggedIn} />} />
+
+          <Route exact path='/' element={<Main isLoggedIn={isLoggedIn} />} />
           <Route path="/signin" element={
             <Login 
               onLogin={handleLogin}
               formError={formError}
             />
           }/>
-          <Route path="/signup" element={
+          <Route path='/signup' element={
             <Register 
               onRegister={handleRegister} 
               formError={formError}  
             />
           }/>
 
-          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />} > 
-            <Route path="/movies" element={
+          <Route element={isLoggedIn && <ProtectedRoute isLoggedIn={isLoggedIn} />} > 
+            <Route path='/movies' element={
               <Movies 
                 searchedMovies={searchedMovies}
                 onSearch={handleSearchMovies}
@@ -163,7 +163,7 @@ function App () {
                 isLoading={isLoading}
               />
             } />
-            <Route path="/saved-movies" element={
+            <Route path='/saved-movies' element={
               <SavedMovies 
                 savedMovies={renderSavedMovies}
                 searchError={searchError}
@@ -174,7 +174,7 @@ function App () {
                 isLoading={isLoading}
               />
             } />
-            <Route path="/profile" element={
+            <Route path='/profile' element={
               <Profile 
                 formError={formError}
                 onEditProfile={handleEditProfile}
@@ -183,7 +183,10 @@ function App () {
             }/>
           </Route>
 
-          <Route path="*" element={<NotFound /> } />
+          <Route path='*' element={<NotFound />} />
+          {/* <Route path="/error-404" element={<NotFound />} />
+          <Route path="*" element={ <Navigate to="/error-404" /> }/> */}
+
         </Routes>
       </CurrentUserContext.Provider>
     </div>
