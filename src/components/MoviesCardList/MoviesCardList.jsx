@@ -23,12 +23,6 @@ function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
     };
   };
 
-  const checkIsCardLiked = (filmId) => {
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    // ищем в массиве такой айди. если есть, то возвращаем тру, если нет, то фолс.
-
-  };
-
   const handleLoadMore = () => {
     const newCount = renderedMovies.renderItemsCount += renderedMovies.renderMoreCount;
     setRenderedMovies({...renderedMovies, renderItemsCount: newCount });
@@ -53,7 +47,6 @@ function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
           return <MoviesCard 
                   key={movie.id}
                   movie={movie}
-                  isLiked={false}
                   onLike={onLike}
                   onDislike={onDislike}
                 />

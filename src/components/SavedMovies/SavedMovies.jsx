@@ -3,7 +3,6 @@ import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
 import './SavedMovies.css';
 import Footer from '../Footer/Footer';
-import { useEffect } from 'react';
 
 function SavedMovies ({ onSearch, searchError, savedMovies, onLike, onDislike }) {
 

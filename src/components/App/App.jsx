@@ -70,7 +70,6 @@ function App () {
       .then(allMovies => {
         const filterResult = filterMovies(allMovies, searchParams, setSearchError);
         setSearchedMovies(filterResult);
-        console.log(searchedMovies)
       })
       .catch(() => setSearchError({ isError: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' }));
   };
@@ -83,8 +82,12 @@ function App () {
   const handleLikeMovie = (movieData) => {
     likeMovie(movieData)
       .then(likedMovie => {
-        console.log('yes you liked')
-        setSavedMovies(savedMovies.push(likedMovie));
+        if (!savedMovies.some(movie => movie.id === likedMovie.id)) {
+          setSavedMovies([...savedMovies, likedMovie]);
+          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+        };
+        console.log(savedMovies)
+        console.log(likedMovie)
       })
       .catch(err => console.log(err.message));
   };
