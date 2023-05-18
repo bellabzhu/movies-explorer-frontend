@@ -18,7 +18,8 @@ function App () {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [formError, setFormError] = useState({ isError: false, text: '' });
-  const [savedMovies, setSavedMovies] = useState([]);
+  const previouslySaved = JSON.parse(localStorage.getItem('savedMovies'));
+  const [savedMovies, setSavedMovies] = useState(previouslySaved);
   const previousSearch = JSON.parse(localStorage.getItem('movies'));
   const [searchedMovies, setSearchedMovies] = useState(previousSearch || []);
   const [searchError, setSearchError] = useState({ isError: false, text: '' });
@@ -86,19 +87,18 @@ function App () {
           setSavedMovies([...savedMovies, likedMovie]);
           localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         };
-        console.log(savedMovies)
-        console.log(likedMovie)
       })
       .catch(err => console.log(err.message));
   };
 
   const handleDislikeMovie = (movieId) => {
     dislikeMovie(movieId)
-    .then(dislikedMovie => {
-      console.log(dislikedMovie, 'no you disliked');
-      setSavedMovies(savedMovies.push(dislikedMovie));
-    })
-    .catch(err => console.log(err.message));
+      .then(dislikedMovie => {
+        const updatedMovies = savedMovies.filter(movie => movie._id !== dislikedMovie._id);
+        setSavedMovies(updatedMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+      })
+      .catch(err => console.log(err.message));
   };
 
   // Make a request in order to check the token and autorize
@@ -147,6 +147,7 @@ function App () {
                 searchError={searchError}
                 onDislike={handleDislikeMovie}
                 onLike={handleLikeMovie}
+                savedMovies={savedMovies}
               />
             } />
             <Route path="/saved-movies" element={

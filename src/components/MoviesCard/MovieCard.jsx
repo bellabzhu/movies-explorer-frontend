@@ -1,8 +1,7 @@
 import './MoviesCard.css';
 import { BASE_URL_MOVIES } from '../../utils/constants';
-import { useEffect } from 'react';
 
-function MoviesCard ({ movie, onLike, onDislike }) {
+function MoviesCard ({ movie, savedMovies, onLike, onDislike }) {
 
   const imagURl = movie.image.url 
     ? `${BASE_URL_MOVIES}${movie.image.url}`
@@ -18,27 +17,23 @@ function MoviesCard ({ movie, onLike, onDislike }) {
     return `${hours}ч ${minutes}м`;
   };
 
-  const isLiked = (movie) => {
-    const savedMovies = JSON.parse(localStorage.getItem('savedMovies'));
-    console.log(savedMovies)
-    if (!savedMovies) { return false };
-    if (savedMovies.some(savedMovie => savedMovie.id === movie.id)) {
-      return true;
-    };
-    return false;
-  };
-
   const handleCardLike = () => {
-    if (isLiked) { 
-      onDislike(movie.id)
+    if (isLiked) {
+      // find the id of the movie in savedMovies
+      const savedMovieId = savedMovies.find(obj => obj.id === movie.id)._id;
+      onDislike(savedMovieId)
     } else {
       onLike(movie);
     };
   };
 
-  useEffect(() => {
-    isLiked(movie);
-  }, [movie]);
+  const checkIfLiked = (movie, savedMovies) => {
+    return savedMovies.some(savedMovie => savedMovie.id === movie.id) 
+      ? true 
+      : false;
+  };
+
+  const isLiked = checkIfLiked(movie, savedMovies);
 
   return(
     <li className="card">
@@ -46,10 +41,10 @@ function MoviesCard ({ movie, onLike, onDislike }) {
       <p className="card__duration">{minutesToHours(movie.duration)}</p>
       <img src={imagURl} alt={movie.nameRU} className="card__img" onClick={onClickCard} />
       <button 
-        className={isLiked(movie) ? "card__btn card__btn-unsave" : "card__btn card__btn-save"}
+        className={isLiked ? "card__btn card__btn-unsave" : "card__btn card__btn-save"}
         onClick={handleCardLike}
       >
-        {isLiked(movie) ? <span className="card__icon-saved" /> : "Сохранить"}
+        {isLiked ? <span className="card__icon-saved" /> : "Сохранить"}
       </button>
     </li>
   )

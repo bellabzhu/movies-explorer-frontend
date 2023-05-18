@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import './MoviesCardList.css';
 import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
 
-function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
+function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike }) {
 
   const [screenWidth, setScreenWidth] = useState(window.screen.width);
   const [renderedMovies, setRenderedMovies] = useState({
@@ -49,6 +49,7 @@ function MoviesCardList ({ movies, searchError, onLike, onDislike }) {
                   movie={movie}
                   onLike={onLike}
                   onDislike={onDislike}
+                  savedMovies={savedMovies}
                 />
         })}
       </ul>

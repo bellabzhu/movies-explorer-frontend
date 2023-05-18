@@ -21,6 +21,7 @@ function SavedMovies ({ onSearch, searchError, savedMovies, onLike, onDislike })
           searchError={searchError}
           onDislike={onDislike}
           onLike={onLike}
+          savedMovies={savedMovies}
         />
       </main>
       <Footer />
