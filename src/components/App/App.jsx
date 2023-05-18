@@ -55,6 +55,7 @@ function App () {
   const handleSignOut = () => {
     signOut()
       .then(() => {
+        navigate('/');
         setCurrentUser({ name: '', email: '' });
         setIsLoggedIn(false);
         setFormError({ isError: false, text: '' });
