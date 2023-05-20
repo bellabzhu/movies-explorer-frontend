@@ -1,3 +1,5 @@
+import { SHORTS_DURATION_MIN } from "./constants";
+
 export const filterMovies = (movies, searchParams, setSearchError) => {
 
   const searchResult = movies.filter(movie => movie.nameRU.toLowerCase().includes(searchParams.keywords.toLowerCase()));
@@ -12,7 +14,7 @@ export const filterMovies = (movies, searchParams, setSearchError) => {
   };
 
   if (searchParams.isShortFilm) {
-    const filterResult = searchResult.filter(({ duration }) => duration <= 40);
+    const filterResult = searchResult.filter(({ duration }) => duration <= SHORTS_DURATION_MIN);
     setSearchError(filterResult < 1 ? { isError: true, text: 'Ничего не найдено' } : { isError: false, text: '' });
     return filterResult;
   };
