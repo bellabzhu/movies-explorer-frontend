@@ -5,7 +5,7 @@ import Preloader from '../Preloader/Preloader';
 import { SCREEN_L, SCREEN_M, SCREEN_S } from '../../utils/constants';
 import './MoviesCardList.css';
 
-function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, isLoading, isSubmiting }) {
+function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, isLoading, isSubmiting, place }) {
 
   const [screenWidth, setScreenWidth] = useState(window.screen.width);
   const [renderedMovies, setRenderedMovies] = useState({
@@ -55,6 +55,7 @@ function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, 
                   onDislike={onDislike}
                   savedMovies={savedMovies}
                   isSubmiting={isSubmiting}
+                  place={place}
                 />
           })
         }

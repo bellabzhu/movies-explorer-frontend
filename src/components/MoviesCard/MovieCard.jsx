@@ -1,7 +1,7 @@
 import { BASE_URL_MOVIES } from '../../utils/constants';
 import './MoviesCard.css';
 
-function MoviesCard ({ movie, savedMovies, onLike, onDislike, isSubmiting }) {
+function MoviesCard ({ movie, savedMovies, onLike, onDislike, isSubmiting, place }) {
 
   const imagURl = movie.image.url 
     ? `${BASE_URL_MOVIES}${movie.image.url}`
@@ -34,6 +34,11 @@ function MoviesCard ({ movie, savedMovies, onLike, onDislike, isSubmiting }) {
   };
 
   const isLiked = checkIfLiked(movie, savedMovies);
+  
+  const btnIcon = place==="saved" ? "card__icon-del" : "card__icon-saved"
+  const btnClass = isLiked
+    ? `card__btn ${place==='saved' ? "card__btn-del" : "card__btn-unsave"}`
+    : "card__btn card__btn-save";
 
   return(
     <li className="card">
@@ -41,11 +46,11 @@ function MoviesCard ({ movie, savedMovies, onLike, onDislike, isSubmiting }) {
       <p className="card__duration">{minutesToHours(movie.duration)}</p>
       <img src={imagURl} alt={movie.nameRU} className="card__img" onClick={onClickCard} />
       <button 
-        className={isLiked ? "card__btn card__btn-unsave" : "card__btn card__btn-save"}
+        className={btnClass}
         onClick={handleCardLike}
         disabled={isSubmiting}
       >
-        {isLiked ? <span className="card__icon-saved" /> : "Сохранить"}
+        {isLiked ? <span className={btnIcon} /> : "Сохранить"}
       </button>
     </li>
   );

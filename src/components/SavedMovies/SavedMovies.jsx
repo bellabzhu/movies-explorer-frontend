@@ -26,6 +26,7 @@ function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLi
           savedMovies={searchSavedMovies ? searchSavedMovies : savedMovies}
           isLoading={isLoading}
           isSubmiting={isSubmiting}
+          place="saved"
         />
       </main>
       <Footer />
