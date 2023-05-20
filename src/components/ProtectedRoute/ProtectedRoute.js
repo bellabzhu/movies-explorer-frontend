@@ -1,6 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
 
 function ProtectedRoute({ isLoggedIn }) {
+
   return (
     isLoggedIn ? <Outlet /> : <Navigate to="/" />
   );

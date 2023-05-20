@@ -18,10 +18,10 @@ function App () {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [formError, setFormError] = useState({ isError: false, text: '' });
-  const previouslySaved = JSON.parse(localStorage.getItem('savedMovies'));
-  const [savedMovies, setSavedMovies] = useState(previouslySaved);
-  const previousSearch = JSON.parse(localStorage.getItem('movies'));
-  const [searchedMovies, setSearchedMovies] = useState(previousSearch || []);
+  const previouslySaved = localStorage.getItem('savedMovies');
+  const [savedMovies, setSavedMovies] = useState(previouslySaved ? JSON.parse(previouslySaved) : []);
+  const previousSearch = localStorage.getItem('movies');
+  const [searchedMovies, setSearchedMovies] = useState(previousSearch ? JSON.parse(previousSearch) : []);
   const [searchSavedMovies, setSearchedSavedMovies] = useState([]);
   const [searchError, setSearchError] = useState({ isError: false, text: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -65,6 +65,8 @@ function App () {
         setCurrentUser({ name: '', email: '' });
         setIsLoggedIn(false);
         setFormError({ isError: false, text: '' });
+        setSearchedMovies([]);
+        setSavedMovies([]);
         localStorage.clear();
       })
       .catch(err => setFormError({ isError: true, text: err.message }))
@@ -136,7 +138,10 @@ function App () {
         setCurrentUser({ name: res.name, email: res.email })
         setIsLoggedIn(true);
       })
-      .catch(err => console.log(err.message));
+      .then(() => {
+        if (window.history.length > 2) navigate(-1);
+      })
+      .catch(err => console.log(err.message))
     getFavMovies()
       .then(favMovies => {
         setSavedMovies(favMovies);
@@ -170,7 +175,7 @@ function App () {
             />
           }/>
 
-          <Route element={isLoggedIn && <ProtectedRoute isLoggedIn={isLoggedIn} />} > 
+          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />} > 
             <Route path='/movies' element={
               <Movies 
                 searchedMovies={searchedMovies}
@@ -205,7 +210,7 @@ function App () {
               />
             }/>
           </Route>
-
+          
           <Route path="/error-404" element={<NotFound />} />
           <Route path="*" element={ <Navigate to="/error-404" /> }/>
 
