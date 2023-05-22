@@ -118,12 +118,6 @@ function App () {
       });
   };
 
-  // поиск по сохраненным фильмам
-  // const handleSearchSavedMovies = (searchParams) => {
-  //   const filterResult = filterMovies(savedMovies, searchParams, setSearchError);
-  //   setSearchedSavedMovies(filterResult);
-  // };
-
   const handleLikeMovie = (movieData) => {
     setIsSubmiting(true);
     likeMovie(movieData)
