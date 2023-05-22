@@ -6,15 +6,18 @@ function SearchForm ({ onSearch, isGlobalSearch, setSearchError, isSubmiting }) 
   const [searchValue, setSearchValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(false);
 
+  // если ищем в /movies, то достаем из хранилища поисковый запрос
   useEffect(() => {
-    const userCheckedBefore = localStorage.getItem('isChecked');
-    setIsChecked(userCheckedBefore === 'true' ? true : false);
-    const userSearchBefore = localStorage.getItem('search');
-    setSearchValue(
-      userSearchBefore 
-        ? userSearchBefore
-        : ''
-    );
+    if (isGlobalSearch) {
+      const userCheckedBefore = localStorage.getItem('isChecked');
+      setIsChecked(userCheckedBefore === 'true' ? true : false);
+      const userSearchBefore = localStorage.getItem('search');
+      setSearchValue(
+        userSearchBefore 
+          ? userSearchBefore
+          : ''
+      );
+    };
   }, []);
 
   const toggleCheckbox = (e) => {
@@ -36,7 +39,10 @@ function SearchForm ({ onSearch, isGlobalSearch, setSearchError, isSubmiting }) 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchError({ isError: false, text: '' });
-    localStorage.setItem('search', searchValue);
+    // храним поисковый запрос только из /movies
+    if (isGlobalSearch) {
+      localStorage.setItem('search', searchValue);
+    };
     onSearch({
       isShortFilm: isChecked,
       keywords: searchValue,

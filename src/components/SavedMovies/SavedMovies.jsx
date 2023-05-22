@@ -1,10 +1,38 @@
+import { useEffect, useState } from 'react';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import { filterMovies } from '../../utils/filterMovies';
 import './SavedMovies.css';
 
-function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLike, onDislike, searchSavedMovies, isLoading, isSubmiting }) {
+function SavedMovies ({
+    searchError, 
+    setSearchError, 
+    savedMovies, 
+    onLike, 
+    onDislike,
+    isLoading, 
+    isSubmiting 
+  }) {
+
+  const [renderedMovies, setRenderedMovies] = useState([]);
+
+  // поиск по избранным без обращения к серверу
+  const onSearchSaved = (searchParams) => {
+    const filterResult = filterMovies(savedMovies, searchParams, setSearchError);
+    setRenderedMovies(filterResult);
+  };
+
+  // при монтировании компонента всегда показываем все избранные фильмы
+  useEffect(() => {
+    setRenderedMovies(savedMovies);
+  }, []);
+
+  useEffect(() => {
+    setRenderedMovies(savedMovies);
+  }, [savedMovies]);
+  
   return(
     <>
       <Header 
@@ -13,17 +41,17 @@ function SavedMovies ({ onSearch, searchError, setSearchError, savedMovies, onLi
       />
       <main>
         <SearchForm
-          onSearch={onSearch} 
+          onSearch={onSearchSaved} 
           isGlobalSearch={false}
           setSearchError={setSearchError}
           isSubmiting={isSubmiting}
         />
         <MoviesCardList 
-          movies={savedMovies}
+          movies={renderedMovies}
           searchError={searchError}
           onDislike={onDislike}
           onLike={onLike}
-          savedMovies={searchSavedMovies ? searchSavedMovies : savedMovies}
+          savedMovies={savedMovies}
           isLoading={isLoading}
           isSubmiting={isSubmiting}
           place="saved"

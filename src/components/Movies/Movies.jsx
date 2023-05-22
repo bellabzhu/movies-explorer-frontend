@@ -4,7 +4,18 @@ import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import './Movies.css';
 
-function Movies ({ onSearch, savedMovies, searchedMovies, searchError, setSearchError, onLike, onDislike, isLoading, isSubmiting }) {
+function Movies ({ 
+    onSearch,
+    savedMovies, 
+    searchedMovies, 
+    searchError, 
+    setSearchError, 
+    onLike, 
+    onDislike, 
+    isLoading, 
+    isSubmiting 
+  }) {
+
   return (
     <>
       <Header 

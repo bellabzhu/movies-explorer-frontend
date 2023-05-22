@@ -35,6 +35,7 @@ function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, 
   }, [movies]);
 
   useEffect(() => {
+    setRenderedMovies({...renderedMovies, movies: movies});
     checkScreenSize(screenWidth);
     window.addEventListener('resize', checkScreenSize);
     return () => {

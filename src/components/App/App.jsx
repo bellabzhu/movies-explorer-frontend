@@ -18,21 +18,15 @@ function App () {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [formError, setFormError] = useState({ isError: false, text: '' });
-  const previouslySaved = localStorage.getItem('savedMovies');
-  const [savedMovies, setSavedMovies] = useState(previouslySaved ? JSON.parse(previouslySaved) : []);
+  const [savedMovies, setSavedMovies] = useState([]);
   const previousSearch = localStorage.getItem('movies');
   const [searchedMovies, setSearchedMovies] = useState(previousSearch ? JSON.parse(previousSearch) : []);
-  const [searchSavedMovies, setSearchedSavedMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
   const [searchError, setSearchError] = useState({ isError: false, text: '' });
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmiting, setIsSubmiting] = useState(false);
+  const [isAuthorizing, setIsAuthorising] = useState(false);
   const navigate = useNavigate();
-
-  const renderSavedMovies = searchSavedMovies.length > 0 && !searchError.isError
-  ? searchSavedMovies
-  : searchError.isError 
-    ? [] 
-    : savedMovies;
 
   const handleRegister = ({ name, email, password }) => {
     setIsSubmiting(true);
@@ -84,12 +78,35 @@ function App () {
       .finally(() => setIsSubmiting(false));
   };
 
+  // достаем все фильмы из api BeatsFilms, если еще их не загружали.
+  const getAllMovies = () => {
+    return new Promise((resolve, reject) => {
+      if (allMovies.length > 0) {
+        resolve(allMovies);
+      } else {
+        getMovies()
+          .then((movies) => {
+            setAllMovies(movies);
+            resolve(movies);
+          })
+          .catch(() => {
+            reject('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз');
+          })
+          .finally(() => {
+            setIsSubmiting(false);
+            setIsLoading(false);
+          });
+      }
+    });
+  };
+
+  // функция глобального поиска фильмов
   const handleSearchMovies = (searchParams) => {
     setIsSubmiting(true);
     setIsLoading(true);
-    getMovies()
-      .then(allMovies => {
-        const filterResult = filterMovies(allMovies, searchParams, setSearchError);
+    getAllMovies()
+      .then((movies) => {
+        const filterResult = filterMovies(movies, searchParams, setSearchError);
         setSearchedMovies(filterResult);
       })
       .catch(() => {
@@ -101,10 +118,11 @@ function App () {
       });
   };
 
-  const handleSearchSavedMovies = (searchParams) => {
-    const filterResult = filterMovies(savedMovies, searchParams, setSearchError);
-    setSearchedSavedMovies(filterResult);
-  };
+  // поиск по сохраненным фильмам
+  // const handleSearchSavedMovies = (searchParams) => {
+  //   const filterResult = filterMovies(savedMovies, searchParams, setSearchError);
+  //   setSearchedSavedMovies(filterResult);
+  // };
 
   const handleLikeMovie = (movieData) => {
     setIsSubmiting(true);
@@ -112,7 +130,6 @@ function App () {
       .then(likedMovie => {
         if (!savedMovies.some(movie => movie.id === likedMovie.id)) {
           setSavedMovies([...savedMovies, likedMovie]);
-          localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
         };
       })
       .catch(err => console.log(err.message))
@@ -125,99 +142,105 @@ function App () {
       .then(dislikedMovie => {
         const updatedMovies = savedMovies.filter(movie => movie._id !== dislikedMovie._id);
         setSavedMovies(updatedMovies);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
       })
       .catch(err => console.log(err.message))
       .finally(() => setIsSubmiting(false));
   };
 
-  // Make a request in order to check the token and autorize
   useEffect(() => {
-    getUserInfo()
-      .then(res => {
-        setCurrentUser({ name: res.name, email: res.email })
-        setIsLoggedIn(true);
-      })
-      .then(() => {
-        if (window.history.length > 2) navigate(-1);
-      })
-      .catch(err => console.log(err.message))
     getFavMovies()
       .then(favMovies => {
         setSavedMovies(favMovies);
         setSearchError({ isError: false, text: '' });
-        localStorage.setItem('savedMovies', JSON.stringify(favMovies));
       })
       .catch(() => setSearchError({ 
         isError: true, 
         text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
       }))
+  }, [isLoggedIn]);
+
+  // Make a request in order to check the token and autorize
+  useEffect(() => {
+    setIsAuthorising(true);
+    Promise.all([ getUserInfo(), getFavMovies() ])
+      .then(([user, favMovies]) => {
+        setCurrentUser({ name: user.name, email: user.email })
+        setIsLoggedIn(true);
+        setSavedMovies(favMovies);
+        setSearchError({ isError: false, text: '' });
+      })
+      .then(() => {
+        if (window.history.length > 2) navigate(-1);
+      })
+      .catch(() => setSearchError({ 
+        isError: true, 
+        text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
+      }))
+      .finally(() => setIsAuthorising(false));
   }, []);
 
-  return (
-    <div className="app">
-      <CurrentUserContext.Provider value={currentUser}>
-        <Routes>
-
-          <Route exact path='/' element={<Main isLoggedIn={isLoggedIn} />} />
-          <Route path="/signin" element={
-            <Login 
-              onLogin={handleLogin}
-              formError={formError}
-              isSubmiting={isSubmiting}
-            />
-          }/>
-          <Route path='/signup' element={
-            <Register 
-              onRegister={handleRegister} 
-              formError={formError}
-              isSubmiting={isSubmiting}
-            />
-          }/>
-
-          <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />} > 
-            <Route path='/movies' element={
-              <Movies 
-                searchedMovies={searchedMovies}
-                onSearch={handleSearchMovies}
-                searchError={searchError}
-                setSearchError={setSearchError}
-                onDislike={handleDislikeMovie}
-                onLike={handleLikeMovie}
-                savedMovies={savedMovies}
-                isLoading={isLoading}
-                isSubmiting={isSubmiting}
-              />
-            } />
-            <Route path='/saved-movies' element={
-              <SavedMovies 
-                savedMovies={renderSavedMovies}
-                searchError={searchError}
-                setSearchError={setSearchError}
-                onDislike={handleDislikeMovie}
-                onLike={handleLikeMovie}
-                onSearch={handleSearchSavedMovies}
-                isLoading={isLoading}
-                isSubmiting={isSubmiting}
-              />
-            } />
-            <Route path='/profile' element={
-              <Profile 
+  if (!isAuthorizing) {
+    return (
+      <div className="app">
+        <CurrentUserContext.Provider value={currentUser}>
+          <Routes>
+            <Route exact path='/' element={<Main isLoggedIn={isLoggedIn} />} />
+            <Route path="/signin" element={
+              <Login 
+                onLogin={handleLogin}
                 formError={formError}
-                onEditProfile={handleEditProfile}
-                onSignOut={handleSignOut}
                 isSubmiting={isSubmiting}
               />
             }/>
-          </Route>
-          
-          <Route path="/error-404" element={<NotFound />} />
-          <Route path="*" element={ <Navigate to="/error-404" /> }/>
-
-        </Routes>
-      </CurrentUserContext.Provider>
-    </div>
-  );
-}
+            <Route path='/signup' element={
+              <Register 
+                onRegister={handleRegister} 
+                formError={formError}
+                isSubmiting={isSubmiting}
+              />
+            }/>
+            <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />} > 
+              <Route path='/movies' element={
+                <Movies 
+                  searchedMovies={searchedMovies}
+                  onSearch={handleSearchMovies}
+                  searchError={searchError}
+                  setSearchError={setSearchError}
+                  onDislike={handleDislikeMovie}
+                  onLike={handleLikeMovie}
+                  savedMovies={savedMovies}
+                  isLoading={isLoading}
+                  isSubmiting={isSubmiting}
+                />
+              } />
+              <Route path='/saved-movies' element={
+                <SavedMovies
+                  savedMovies={savedMovies}
+                  searchError={searchError}
+                  setSearchError={setSearchError}
+                  onDislike={handleDislikeMovie}
+                  onLike={handleLikeMovie}
+                  isLoading={isLoading}
+                  isSubmiting={isSubmiting}
+                />
+              } />
+              <Route path='/profile' element={
+                <Profile 
+                  formError={formError}
+                  onEditProfile={handleEditProfile}
+                  onSignOut={handleSignOut}
+                  isSubmiting={isSubmiting}
+                />
+              }/>
+            </Route>
+            
+            <Route path="/error-404" element={<NotFound />} />
+            <Route path="*" element={ <Navigate to="/error-404" /> }/>
+          </Routes>
+        </CurrentUserContext.Provider>
+      </div>
+    );
+  };
+};
 
 export default App;
