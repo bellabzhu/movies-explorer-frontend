@@ -163,9 +163,6 @@ function App () {
         setSavedMovies(favMovies);
         setSearchError({ isError: false, text: '' });
       })
-      .then(() => {
-        if (window.history.length > 2) navigate(-1);
-      })
       .catch(() => setSearchError({ 
         isError: true, 
         text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
