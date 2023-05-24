@@ -22,7 +22,6 @@ function SearchForm ({ onSearch, isGlobalSearch, setSearchError, isSubmiting }) 
 
   const toggleCheckbox = (e) => {
     setIsChecked(e.target.checked);
-    localStorage.setItem('isChecked', JSON.stringify(e.target.checked));
     setSearchError({ isError: false, text: '' });
     onSearch({
       isShortFilm: e.target.checked,
