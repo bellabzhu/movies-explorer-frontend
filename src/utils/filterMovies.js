@@ -16,6 +16,7 @@ export const filterMovies = (movies, searchParams, setSearchError) => {
 
   if (searchParams.isShortFilm) {
     const filterResult = searchResult.filter(({ duration }) => duration <= SHORTS_DURATION_MIN);
+    localStorage.setItem('movies', JSON.stringify(filterResult));
     setSearchError(filterResult < 1 ? { isError: true, text: 'Ничего не найдено' } : { isError: false, text: '' });
     return filterResult;
   };
@@ -23,3 +24,13 @@ export const filterMovies = (movies, searchParams, setSearchError) => {
   setSearchError({ isError: false, text: '' });
   return searchResult;
 };
+
+// export const filterShorts = (movies, setSearchError) => {
+//   const filterResult = movies.filter(({ duration }) => duration <= SHORTS_DURATION_MIN);
+//   setSearchError(filterResult < 1 ? { isError: true, text: 'Ничего не найдено' } : { isError: false, text: '' });
+//   return filterResult;
+// };
+
+// export const filterKeywords = (movies, keywords) => {
+//   return movies.filter(movie => movie.nameRU.toLowerCase().includes(keywords.toLowerCase()));
+// };
