@@ -15,7 +15,7 @@ import NotFound from '../NotFound/NotFound';
 import './App.css';
 
 function App () {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [currentUser, setCurrentUser] = useState({ name: '', email: '' });
   const [formError, setFormError] = useState({ isError: false, text: '' });
   const [savedMovies, setSavedMovies] = useState([]);
@@ -96,7 +96,7 @@ function App () {
             setIsSubmiting(false);
             setIsLoading(false);
           });
-      }
+      };
     });
   };
 
@@ -142,6 +142,7 @@ function App () {
   };
 
   useEffect(() => {
+    if (!isLoggedIn) { return };
     getFavMovies()
       .then(favMovies => {
         setSavedMovies(favMovies);
@@ -163,34 +164,38 @@ function App () {
         setSavedMovies(favMovies);
         setSearchError({ isError: false, text: '' });
       })
-      .catch(() => setSearchError({ 
-        isError: true, 
-        text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
-      }))
+      .catch(() => { 
+        setSearchError({ 
+          isError: true, 
+          text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз' 
+        })
+        setIsLoggedIn(false);
+      })
       .finally(() => setIsAuthorising(false));
   }, []);
 
-  if (!isAuthorizing) {
-    return (
+  return (
       <div className="app">
         <CurrentUserContext.Provider value={currentUser}>
           <Routes>
             <Route exact path='/' element={<Main isLoggedIn={isLoggedIn} />} />
-            <Route path="/signin" element={
-              <Login 
-                onLogin={handleLogin}
-                formError={formError}
-                isSubmiting={isSubmiting}
-              />
+            <Route path="/signin" element={isLoggedIn 
+              ? <Navigate to="/"/>
+              : <Login 
+                  onLogin={handleLogin}
+                  formError={formError}
+                  isSubmiting={isSubmiting}
+                />
             }/>
-            <Route path='/signup' element={
-              <Register 
-                onRegister={handleRegister} 
-                formError={formError}
-                isSubmiting={isSubmiting}
-              />
+            <Route path='/signup' element={isLoggedIn
+              ? <Navigate to="/"/>
+              : <Register 
+                  onRegister={handleRegister} 
+                  formError={formError}
+                  isSubmiting={isSubmiting}
+                />
             }/>
-            <Route element={<ProtectedRoute isLoggedIn={isLoggedIn} />} > 
+            <Route element={<ProtectedRoute isAuthorizing={isAuthorizing} isLoggedIn={isLoggedIn} />} > 
               <Route path='/movies' element={
                 <Movies 
                   searchedMovies={searchedMovies}
@@ -231,7 +236,6 @@ function App () {
         </CurrentUserContext.Provider>
       </div>
     );
-  };
 };
 
 export default App;

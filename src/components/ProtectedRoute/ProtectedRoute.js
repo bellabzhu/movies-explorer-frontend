@@ -1,11 +1,13 @@
 import { Outlet, Navigate } from "react-router-dom";
 
 function ProtectedRoute({ isLoggedIn, isAuthorizing }) {
-  if (!isAuthorizing) {
+
+  if (!isAuthorizing && isLoggedIn !== null) {
     return (
-      isLoggedIn ? <Outlet /> : <Navigate to="/" />
+      isLoggedIn ? <Outlet /> : <Navigate to='/' />
     );
   };
+  
   return;
 };
 
