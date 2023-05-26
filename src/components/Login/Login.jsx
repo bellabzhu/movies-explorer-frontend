@@ -1,7 +1,19 @@
 import Form from '../Form/Form';
+import { useFormWithValidation } from '../../hooks/useFormValidation';
 import './Login.css';
 
-function Login () {
+function Login ({ onLogin, formError, isSubmiting }) {
+
+  const logForm = useFormWithValidation({ email: '', password: '' });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onLogin({
+      email: logForm.values.email,
+      password: logForm.values.password,
+    });
+  };
+
   return(
     <main>
       <section className="login">
@@ -12,34 +24,44 @@ function Login () {
             askLinkText="Регистрация"
             askLink="/signup"
             submitBtnText="Войти"
+            onSubmit={onSubmit}
+            formError={formError}
+            isValid={logForm.isValid}
+            isSubmiting={isSubmiting}
           >
             <label className="form__label">
             E-mail
-              <input 
-                className="form__input" 
-                placeholder="yandex.@yandex.ru"
+              <input
+                className={logForm.errors.email ? "form__input form__input-error" : "form__input"} 
+                placeholder="google.@google.com"
                 type="email"
                 required
                 name="email"
+                value={logForm.values.email}
+                onChange={(e) => logForm.handleChange(e)}
+                noValidate
               />
             </label>
-            <span className="form__text-error"></span>
+            <span className="form__input-text-error">{logForm.errors.email}</span>
             <label className="form__label">
             Пароль
-              <input 
-                className="form__input form__input_error" 
-                type="password" 
-                placeholder="Придумайте надежный пароль" 
+              <input
+                className={logForm.errors.password ? "form__input form__input-error" : "form__input"} 
+                type="password"
+                placeholder="Ваш пароль" 
                 required
                 name="password"
+                value={logForm.values.password}
+                onChange={(e) => logForm.handleChange(e)}
+                noValidate
               />
             </label>
-            <span className="form__text-error">Что-то пошло не так...</span>
+            <span className="form__input-text-error">{logForm.errors.password}</span>
           </Form>
         </div>
       </section>
     </main>
-  )
-}
+  );
+};
 
 export default Login;

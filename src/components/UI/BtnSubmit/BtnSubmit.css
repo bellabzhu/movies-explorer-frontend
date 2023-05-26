@@ -1,0 +1,27 @@
+.btn-submit {
+  margin: 0;
+  padding: 15px;
+  display: block;
+  border: 0;
+  border-radius: 3px;
+  background-color: var(--blue);
+  width: 100%;
+  color: var(--white);
+  cursor: pointer;
+  opacity: 1;
+  transition: 0.1s linear;
+}
+
+.btn-submit:disabled {
+  background-color: var(--disabled-text);
+  color: var(--disabled-btn);
+  cursor: not-allowed;
+}
+
+.btn-submit:disabled:hover {
+  opacity: 1;
+}
+
+.btn-submit:hover {
+  opacity: 0.7;
+}

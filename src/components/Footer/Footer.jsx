@@ -1,8 +1,7 @@
-import './Footer.css';
 import { Link } from 'react-router-dom';
+import './Footer.css';
 
 function Footer () {
-
   return (
     <footer className="footer">
       <p className="footer__header">Учебный проект Яндекс.Практикум&nbsp;х&nbsp;BeatFilm.</p>
@@ -14,6 +13,6 @@ function Footer () {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;

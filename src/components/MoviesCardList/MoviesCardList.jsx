@@ -1,62 +1,81 @@
+import { useState, useEffect } from 'react';
 import MoviesCard from '../MoviesCard/MovieCard';
+import BtnSubmit from '../UI/BtnSubmit/BtnSubmit';
+import Preloader from '../Preloader/Preloader';
+import { SCREEN_L, SCREEN_M, SCREEN_S } from '../../utils/constants';
 import './MoviesCardList.css';
-import card_1 from '../../images/card_1.png';
-import card_2 from '../../images/card_2.png';
-import card_3 from '../../images/card_3.png';
-import card_4 from '../../images/card_4.png';
-import card_5 from '../../images/card_5.png';
-import card_6 from '../../images/card_6.png';
-import card_7 from '../../images/card_7.png';
 
-function MoviesCardList () {
+function MoviesCardList ({ movies, savedMovies, searchError, onLike, onDislike, isLoading, isSubmiting, place }) {
+
+  const [screenWidth, setScreenWidth] = useState(window.screen.width);
+  const [renderedMovies, setRenderedMovies] = useState({
+    renderItemsCount: SCREEN_S.renderItemsCount,
+    renderMoreCount: SCREEN_S.renderMoreCount,
+    movies: movies,
+  });
+
+  const checkScreenSize = () => {
+    const width = window.screen.width;
+    if (width >= SCREEN_L.minWidth) {
+      setRenderedMovies({...renderedMovies, renderItemsCount: SCREEN_L.renderItemsCount, renderMoreCount: SCREEN_L.renderMoreCount });
+    } else if (width >= SCREEN_M.minWidth) {
+      setRenderedMovies({...renderedMovies, renderItemsCount: SCREEN_M.renderItemsCount, renderMoreCount: SCREEN_M.renderMoreCount });
+    } else {
+      setRenderedMovies({ ...renderedMovies, renderItemsCount: SCREEN_S.renderItemsCount, renderMoreCount: SCREEN_S.renderMoreCount });
+    };
+  };
+
+  const handleLoadMore = () => {
+    const newCount = renderedMovies.renderItemsCount += renderedMovies.renderMoreCount;
+    setRenderedMovies({...renderedMovies, renderItemsCount: newCount });
+  };
+
+  useEffect(() => {
+    setRenderedMovies({...renderedMovies, movies: movies});
+  }, [movies]);
+
+  useEffect(() => {
+    setRenderedMovies({...renderedMovies, movies: movies});
+    checkScreenSize(screenWidth);
+    window.addEventListener('resize', checkScreenSize);
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
+  }, []);
+
   return(
     <section className="movies-list">
       <ul className="movies-list__container">
-        <MoviesCard 
-          title="В погоне за Бенкси"
-          img={card_1}
-          duration="27 минут"
-          isSaved={true}
-        />
-        <MoviesCard 
-          title="Соберись перед прыжком"
-          img={card_2}
-          duration="135 минут"
-          isSaved={false}
-        />
-        <MoviesCard 
-          title="Когда я думаю о Германии ночью"
-          img={card_3}
-          duration="123 минуты"
-          isSaved={true}
-        />
-        <MoviesCard 
-          title="Gimme Danger: История Игги и The Stooge..."
-          img={card_4}
-          duration="13 минут"
-          isSaved={false}
-        />
-        <MoviesCard 
-          title="Книготорговцы"
-          img={card_5}
-          duration="42 минуты"
-          isSaved={true}
-        />
-        <MoviesCard 
-          title="Баския: Взрыв реальности"
-          img={card_6}
-          duration="198 минут"
-          isSaved={false}
-        />
-        <MoviesCard 
-          title="По волнам: Искусство звука в кино"
-          img={card_7}
-          duration="137 минут"
-          isSaved={false}
-        />
+        {isLoading 
+          ? <Preloader /> 
+          : renderedMovies.movies && renderedMovies.movies.slice(0, renderedMovies.renderItemsCount).map((movie) => {
+          return <MoviesCard 
+                  key={movie.id}
+                  movie={movie}
+                  onLike={onLike}
+                  onDislike={onDislike}
+                  savedMovies={savedMovies}
+                  isSubmiting={isSubmiting}
+                  place={place}
+                />
+          })
+        }
       </ul>
+      <div className="movies-list__info-container">
+        {searchError.isError && 
+          <p className="movies-list__error">{searchError.text}</p>
+        }
+        {movies.length > renderedMovies.renderItemsCount && 
+          <BtnSubmit 
+            onSubmit={handleLoadMore} 
+            isBtnDisabled={false}
+            submitBtnText="Загрузить еще"
+            isSubmiting={isSubmiting}
+          />
+        }
+      </div>
     </section>
-  )
-}
+  );
+};
 
 export default MoviesCardList;

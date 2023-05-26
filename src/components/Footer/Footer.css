@@ -5,7 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #F8F8F8;
+  background-color: var(--disabled-text);
   font-size: 13px;
   line-height: 16px;
 }

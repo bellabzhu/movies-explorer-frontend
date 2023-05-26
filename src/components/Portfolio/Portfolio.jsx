@@ -1,8 +1,7 @@
-import './Portfolio.css';
 import { Link } from 'react-router-dom';
+import './Portfolio.css';
 
 function Portfolio () {
-
   return (
     <div className="portfolio">
       <h3 className="portfolio__header">Портфолио</h3>
@@ -28,6 +27,6 @@ function Portfolio () {
       </ul>
     </div>
   );
-}
+};
 
 export default Portfolio;

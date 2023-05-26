@@ -1,7 +1,20 @@
-import './Register.css';
 import Form from '../Form/Form';
+import { useFormWithValidation } from '../../hooks/useFormValidation';
+import './Register.css';
 
-function Register () {
+function Register ({ onRegister, formError, isSubmiting }) {
+
+  const regForm = useFormWithValidation({ name: '', email: '', password: '' });
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    onRegister({
+      name: regForm.values.name,
+      email: regForm.values.email,
+      password: regForm.values.password,
+    });
+  };
+
   return(
     <main>
       <section className="register">
@@ -12,45 +25,59 @@ function Register () {
             askLinkText="Войти"
             askLink="/signin"
             submitBtnText="Зарегистрироваться"
+            onSubmit={onSubmit}
+            formError={formError}
+            isValid={regForm.isValid}
+            isSubmiting={isSubmiting}
           >
             <label className="form__label">
             Имя
               <input 
-                className="form__input" 
-                placeholder="Виталий" 
+                className={regForm.errors.name ? "form__input form__input-error" : "form__input"} 
+                placeholder="Как вас зовут?" 
                 type="text"
                 required
                 name="name"
+                value={regForm.values.name}
+                onChange={(e) => regForm.handleChange(e)}
+                minLength={2}
+                maxLength={30}
               />
               </label>
-              <span className="form__text-error">Что-то пошло не так...</span>
+              <span className="form__input-text-error form__input-text-error-name">{regForm.errors.name}</span>
               <label className="form__label">
               E-mail
                 <input 
-                  className="form__input" 
-                  placeholder="yandex.@yandex.ru"
+                  className={regForm.errors.email ? "form__input form__input-error" : "form__input"} 
+                  placeholder="google@google.com"
                   type="email"
                   required
                   name="email"
+                  value={regForm.values.email}
+                  onChange={(e) => regForm.handleChange(e)}
+                  minLength={1}
                 />
               </label>
-              <span className="form__text-error"></span>
+              <span className="form__input-text-error form__input-text-error-email">{regForm.errors.email}</span>
               <label className="form__label">
               Пароль
-                <input 
-                  className="form__input form__input_error" 
+                <input
+                  className={regForm.errors.password ? "form__input form__input-error" : "form__input"} 
                   type="password" 
                   placeholder="Придумайте надежный пароль" 
                   required
                   name="password"
+                  value={regForm.values.password}
+                  onChange={(e) => regForm.handleChange(e)}
+                  minLength={1}
                 />
               </label>
-              <span className="form__text-error">Что-то пошло не так...</span>
+              <span className="form__input-text-error form__input-text-error-pass">{regForm.errors.password}</span>
             </Form>
         </div>
       </section>
     </main>
-  )
-}
+  );
+};
 
 export default Register;
