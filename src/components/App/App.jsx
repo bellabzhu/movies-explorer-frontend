@@ -78,7 +78,7 @@ function App () {
       .finally(() => setIsSubmiting(false));
   };
 
-  // достаем все фильмы из api BeatsFilms, если еще их не загружали.
+  // get all movies from BeatsFilms API for the first time
   const getAllMovies = () => {
     return new Promise((resolve, reject) => {
       if (allMovies.length > 0) {
@@ -100,7 +100,7 @@ function App () {
     });
   };
 
-  // функция глобального поиска фильмов
+  // global search from BeatsFilms
   const handleSearchMovies = (searchParams) => {
     setIsSubmiting(true);
     setIsLoading(true);
